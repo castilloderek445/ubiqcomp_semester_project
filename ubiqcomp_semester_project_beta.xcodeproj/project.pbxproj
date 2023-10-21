@@ -11,6 +11,15 @@
 		AA2123D92AE45FD60037E126 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2123D82AE45FD60037E126 /* ContentView.swift */; };
 		AA2123DB2AE45FD70037E126 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA2123DA2AE45FD70037E126 /* Assets.xcassets */; };
 		AA2123DE2AE45FD70037E126 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA2123DD2AE45FD70037E126 /* Preview Assets.xcassets */; };
+		AA2123E72AE46EF10037E126 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2123E62AE46EF10037E126 /* MainView.swift */; };
+		AA2123E92AE46F120037E126 /* AddWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2123E82AE46F120037E126 /* AddWorkoutView.swift */; };
+		AA2123EB2AE46F170037E126 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2123EA2AE46F170037E126 /* ProfileView.swift */; };
+		AA2123F42AE47FC70037E126 /* Cairo-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA2123EE2AE47FC70037E126 /* Cairo-Black.ttf */; };
+		AA2123F52AE47FC70037E126 /* Cairo-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA2123EF2AE47FC70037E126 /* Cairo-Light.ttf */; };
+		AA2123F62AE47FC70037E126 /* Cairo-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA2123F02AE47FC70037E126 /* Cairo-ExtraLight.ttf */; };
+		AA2123F72AE47FC70037E126 /* Cairo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA2123F12AE47FC70037E126 /* Cairo-Regular.ttf */; };
+		AA2123F82AE47FC70037E126 /* Cairo-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA2123F22AE47FC70037E126 /* Cairo-SemiBold.ttf */; };
+		AA2123F92AE47FC70037E126 /* Cairo-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA2123F32AE47FC70037E126 /* Cairo-Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +28,16 @@
 		AA2123D82AE45FD60037E126 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AA2123DA2AE45FD70037E126 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AA2123DD2AE45FD70037E126 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AA2123E62AE46EF10037E126 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		AA2123E82AE46F120037E126 /* AddWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkoutView.swift; sourceTree = "<group>"; };
+		AA2123EA2AE46F170037E126 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		AA2123EE2AE47FC70037E126 /* Cairo-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cairo-Black.ttf"; sourceTree = "<group>"; };
+		AA2123EF2AE47FC70037E126 /* Cairo-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cairo-Light.ttf"; sourceTree = "<group>"; };
+		AA2123F02AE47FC70037E126 /* Cairo-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cairo-ExtraLight.ttf"; sourceTree = "<group>"; };
+		AA2123F12AE47FC70037E126 /* Cairo-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cairo-Regular.ttf"; sourceTree = "<group>"; };
+		AA2123F22AE47FC70037E126 /* Cairo-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cairo-SemiBold.ttf"; sourceTree = "<group>"; };
+		AA2123F32AE47FC70037E126 /* Cairo-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cairo-Bold.ttf"; sourceTree = "<group>"; };
+		AA2123FA2AE480120037E126 /* ubiqcomp-semester-project-beta-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "ubiqcomp-semester-project-beta-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,8 +70,13 @@
 		AA2123D52AE45FD60037E126 /* ubiqcomp_semester_project_beta */ = {
 			isa = PBXGroup;
 			children = (
+				AA2123FA2AE480120037E126 /* ubiqcomp-semester-project-beta-Info.plist */,
+				AA2123ED2AE47FAB0037E126 /* Fonts */,
 				AA2123D62AE45FD60037E126 /* ubiqcomp_semester_project_betaApp.swift */,
 				AA2123D82AE45FD60037E126 /* ContentView.swift */,
+				AA2123E62AE46EF10037E126 /* MainView.swift */,
+				AA2123E82AE46F120037E126 /* AddWorkoutView.swift */,
+				AA2123EA2AE46F170037E126 /* ProfileView.swift */,
 				AA2123DA2AE45FD70037E126 /* Assets.xcassets */,
 				AA2123DC2AE45FD70037E126 /* Preview Content */,
 			);
@@ -65,6 +89,19 @@
 				AA2123DD2AE45FD70037E126 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		AA2123ED2AE47FAB0037E126 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				AA2123EE2AE47FC70037E126 /* Cairo-Black.ttf */,
+				AA2123F32AE47FC70037E126 /* Cairo-Bold.ttf */,
+				AA2123F02AE47FC70037E126 /* Cairo-ExtraLight.ttf */,
+				AA2123EF2AE47FC70037E126 /* Cairo-Light.ttf */,
+				AA2123F12AE47FC70037E126 /* Cairo-Regular.ttf */,
+				AA2123F22AE47FC70037E126 /* Cairo-SemiBold.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,8 +162,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA2123F72AE47FC70037E126 /* Cairo-Regular.ttf in Resources */,
 				AA2123DE2AE45FD70037E126 /* Preview Assets.xcassets in Resources */,
+				AA2123F62AE47FC70037E126 /* Cairo-ExtraLight.ttf in Resources */,
+				AA2123F42AE47FC70037E126 /* Cairo-Black.ttf in Resources */,
+				AA2123F52AE47FC70037E126 /* Cairo-Light.ttf in Resources */,
 				AA2123DB2AE45FD70037E126 /* Assets.xcassets in Resources */,
+				AA2123F92AE47FC70037E126 /* Cairo-Bold.ttf in Resources */,
+				AA2123F82AE47FC70037E126 /* Cairo-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,6 +181,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA2123D92AE45FD60037E126 /* ContentView.swift in Sources */,
+				AA2123E72AE46EF10037E126 /* MainView.swift in Sources */,
+				AA2123EB2AE46F170037E126 /* ProfileView.swift in Sources */,
+				AA2123E92AE46F120037E126 /* AddWorkoutView.swift in Sources */,
 				AA2123D72AE45FD60037E126 /* ubiqcomp_semester_project_betaApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -274,11 +320,13 @@
 				DEVELOPMENT_ASSET_PATHS = "\"ubiqcomp_semester_project_beta/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ubiqcomp-semester-project-beta-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -302,11 +350,13 @@
 				DEVELOPMENT_ASSET_PATHS = "\"ubiqcomp_semester_project_beta/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ubiqcomp-semester-project-beta-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
