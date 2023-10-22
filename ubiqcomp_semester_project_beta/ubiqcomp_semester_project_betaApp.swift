@@ -12,6 +12,10 @@ struct ubiqcomp_semester_project_betaApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .onAppear(){
+                    // location of where the json file is
+                    print(URL.documentsDirectory.path())
+                }
         }
     }
 }

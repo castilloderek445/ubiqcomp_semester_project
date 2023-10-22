@@ -20,6 +20,9 @@
 		AA2123F72AE47FC70037E126 /* Cairo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA2123F12AE47FC70037E126 /* Cairo-Regular.ttf */; };
 		AA2123F82AE47FC70037E126 /* Cairo-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA2123F22AE47FC70037E126 /* Cairo-SemiBold.ttf */; };
 		AA2123F92AE47FC70037E126 /* Cairo-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA2123F32AE47FC70037E126 /* Cairo-Bold.ttf */; };
+		AA2123FC2AE485B10037E126 /* WorkoutLogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2123FB2AE485B10037E126 /* WorkoutLogModel.swift */; };
+		AA2123FE2AE488060037E126 /* TopBannerFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2123FD2AE488060037E126 /* TopBannerFormat.swift */; };
+		AA4871D52AE4A0C00025B9FC /* ContentViewSimple.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4871D42AE4A0C00025B9FC /* ContentViewSimple.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +41,9 @@
 		AA2123F22AE47FC70037E126 /* Cairo-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cairo-SemiBold.ttf"; sourceTree = "<group>"; };
 		AA2123F32AE47FC70037E126 /* Cairo-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cairo-Bold.ttf"; sourceTree = "<group>"; };
 		AA2123FA2AE480120037E126 /* ubiqcomp-semester-project-beta-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "ubiqcomp-semester-project-beta-Info.plist"; sourceTree = SOURCE_ROOT; };
+		AA2123FB2AE485B10037E126 /* WorkoutLogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutLogModel.swift; sourceTree = "<group>"; };
+		AA2123FD2AE488060037E126 /* TopBannerFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBannerFormat.swift; sourceTree = "<group>"; };
+		AA4871D42AE4A0C00025B9FC /* ContentViewSimple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewSimple.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,10 +79,13 @@
 				AA2123FA2AE480120037E126 /* ubiqcomp-semester-project-beta-Info.plist */,
 				AA2123ED2AE47FAB0037E126 /* Fonts */,
 				AA2123D62AE45FD60037E126 /* ubiqcomp_semester_project_betaApp.swift */,
-				AA2123D82AE45FD60037E126 /* ContentView.swift */,
 				AA2123E62AE46EF10037E126 /* MainView.swift */,
+				AA2123D82AE45FD60037E126 /* ContentView.swift */,
+				AA4871D42AE4A0C00025B9FC /* ContentViewSimple.swift */,
 				AA2123E82AE46F120037E126 /* AddWorkoutView.swift */,
 				AA2123EA2AE46F170037E126 /* ProfileView.swift */,
+				AA2123FD2AE488060037E126 /* TopBannerFormat.swift */,
+				AA2123FB2AE485B10037E126 /* WorkoutLogModel.swift */,
 				AA2123DA2AE45FD70037E126 /* Assets.xcassets */,
 				AA2123DC2AE45FD70037E126 /* Preview Content */,
 			);
@@ -180,11 +189,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA2123FC2AE485B10037E126 /* WorkoutLogModel.swift in Sources */,
 				AA2123D92AE45FD60037E126 /* ContentView.swift in Sources */,
+				AA4871D52AE4A0C00025B9FC /* ContentViewSimple.swift in Sources */,
 				AA2123E72AE46EF10037E126 /* MainView.swift in Sources */,
 				AA2123EB2AE46F170037E126 /* ProfileView.swift in Sources */,
 				AA2123E92AE46F120037E126 /* AddWorkoutView.swift in Sources */,
 				AA2123D72AE45FD60037E126 /* ubiqcomp_semester_project_betaApp.swift in Sources */,
+				AA2123FE2AE488060037E126 /* TopBannerFormat.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
