@@ -49,3 +49,20 @@ struct DateBannerView: View {
         .frame(height: 65)
     }
 }
+
+struct SubBannerView: View {
+    let text: String
+
+    var body: some View {
+        ZStack {
+            Color(UIColor(red: 242/255, green: 242/255, blue: 247/255, alpha: 1))
+                .edgesIgnoringSafeArea(.top)
+            Text(text)
+                .font(.custom("Cairo-Regular", size: 20))
+                .foregroundColor(Color(UIColor(red: 0x3C/255, green: 0x3C/255, blue: 0x43/255, alpha: 0.6)))
+                .lineSpacing(18)
+                .foregroundColor(.white)
+        }
+        .frame(height: 65)
+    }
+}
