@@ -169,7 +169,7 @@ struct SelectedExercise: View {
             // where they'll input their information, put in another file
             // at this step, will use the input to start building the Exercise
 
-            BannerView(text: "Blank Routine")
+            BannerView(text: "Exercise Name") //state variable
 
             HStack(spacing:1) {
                 Button(action: {
