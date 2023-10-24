@@ -46,9 +46,8 @@ struct ContentViewSimple: View {
     func addWorkoutLogEntry() {
         // Simulate adding a workout log entry
         //let newEntry = WorkoutLogEntry(date: Date(), exercise: "Bench Press", sets: 3, reps: 10, weight: 135.0)
-        let newEntry = WorkoutLogEntrySimple(workoutDate: Date(timeIntervalSinceReferenceDate: -123456789.0),
-                                       workout: [WorkoutLogEntrySimple.Exercise(exerciseName: "Bench Press",
-                                                                          sets: [WorkoutLogEntrySimple.WorkoutSet(setNumber: 1, reps: 5, weight: 135.0), WorkoutLogEntrySimple.WorkoutSet(setNumber: 2, reps: 10, weight: 100.0) ])])
+        let newEntry = WorkoutLogEntrySimple(workoutDate: Date(),
+                                             workout: [WorkoutLogEntrySimple.Exercise(exerciseName: "Bench Press", setNumber: 1, weight: 135.0, reps: 10)])
 
         workoutLog.append(newEntry)
         

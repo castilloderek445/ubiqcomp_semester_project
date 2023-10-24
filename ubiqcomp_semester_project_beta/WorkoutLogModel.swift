@@ -14,16 +14,10 @@ struct WorkoutLogEntrySimple: Codable{
 
     struct Exercise: Codable {
         var exerciseName: String
-        var sets: [WorkoutSet]
-    }
-
-    struct WorkoutSet: Codable {
         var setNumber: Int
-        var reps: Int
         var weight: Double
-        // Add other properties as needed
+        var reps: Int
     }
-
 }
 
 // for ContentView (experimental zone)

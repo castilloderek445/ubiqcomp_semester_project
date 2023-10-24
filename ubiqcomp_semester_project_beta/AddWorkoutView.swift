@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AddWorkoutView: View {
+    
     var body: some View {
         
         VStack {
@@ -20,6 +21,7 @@ struct AddWorkoutView: View {
 
             // Buttons
             VStack(spacing: 20) {
+                
                 Button(action: {
                     // Action for "Choose Routine" button
                 }) {
@@ -33,18 +35,20 @@ struct AddWorkoutView: View {
                 .foregroundColor(.white)
                 .shadow(color: Color.black.opacity(0.30), radius: 4, x: 0, y: 4)
                 
-                Button(action: {
-                    // Action for "New Routine" button
-                }) {
-                    Text("New Routine")
-                        .font(.custom("Cairo-Regular", size: 32))
-                        .tracking(-0.24)
+                
+                NavigationView {
+                    NavigationLink(destination: ExerciseListView()) {
+                        Text("New Routine")
+                            .font(.custom("Cairo-Regular", size: 32))
+                            .tracking(-0.24)
+                    }
+                    .frame(width: 289, height: 97)
+                    .background(Color(UIColor(red: 254/255, green: 125/255, blue: 14/255, alpha: 1))                .edgesIgnoringSafeArea(.top))
+                    .cornerRadius(12)
+                    .foregroundColor(.white)
+                    .shadow(color: Color.black.opacity(0.30), radius: 4, x: 0, y: 4)
                 }
-                .frame(width: 289, height: 97)
-                .background(Color(UIColor(red: 254/255, green: 125/255, blue: 14/255, alpha: 1))                .edgesIgnoringSafeArea(.top))
-                .cornerRadius(12)
-                .foregroundColor(.white)
-                .shadow(color: Color.black.opacity(0.30), radius: 4, x: 0, y: 4)
+                
             }
             
             Spacer()

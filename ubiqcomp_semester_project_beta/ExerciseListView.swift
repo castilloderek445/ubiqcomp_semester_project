@@ -148,15 +148,18 @@ struct ExerciseView: View {
 
 struct SelectedExercise: View {
     
+    @State private var workoutLog: [WorkoutLogEntrySimple] = []
+    
     //@Binding var hideBanners: Bool
     @State private var weight: Double = 0.0
     @State private var reps: Int = 0
+    @State private var setNumber: Int = 1
     
     let decimalFormatter: NumberFormatter = {
         let decimalFormatter = NumberFormatter()
         decimalFormatter.numberStyle = .decimal
         decimalFormatter.maximumFractionDigits = 2
-        decimalFormatter.minimumFractionDigits = 2
+        decimalFormatter.minimumFractionDigits = 1
         decimalFormatter.allowsFloats = true
         return decimalFormatter
     }()
@@ -302,27 +305,83 @@ struct SelectedExercise: View {
             
             Button("Add Set") {
                 
+                setNumber += 1
+                addWorkoutLogEntry(exName: "Bench Press", setNumber: setNumber, weight: weight, reps: reps)
             }
             
-            //will show sets populated
-            ScrollView {
-                VStack {
-                    ForEach(items, id: \.self) { item in
-                        HStack {
-                            Text(item)
-                            Spacer()
-                            Image(systemName: "arrow.right.circle")
-                        }
-                        .padding()
-                        .border(Color.gray, width: 0.5)
-                    }
-                }
+            List(workoutLog, id: \.workoutDate) { entry in
+                
+                let weightFormatted = entry.workout.map { $0.weight }.reduce(0, +)
+                
+                Text("Flat Barbell Bench Press, \(entry.workout.map { $0.setNumber }.reduce(0, +)) set, \(String(format: "%.1f", weightFormatted)) lbs ")
+            
             }
+            .onAppear(perform: loadWorkoutLog)
+            
+            //will show sets populated
+//            ScrollView {
+//                VStack {
+//                    ForEach(items, id: \.self) { item in
+//                        HStack {
+//                            Text(item)
+//                            Spacer()
+//                            Image(systemName: "arrow.right.circle")
+//                        }
+//                        .padding()
+//                        .border(Color.gray, width: 0.5)
+//                    }
+//                }
+//            }
             Spacer()
             
         } // end of highest VStack
         .padding()
     } // end of Body
+    
+    func addWorkoutLogEntry(exName: String, setNumber: Int, weight: Double, reps: Int) {
+                
+        let newEntry = WorkoutLogEntrySimple(workoutDate: Date(),
+                                             workout: [WorkoutLogEntrySimple.Exercise(exerciseName: exName, setNumber: setNumber, weight: weight, reps: reps)])
+
+        workoutLog.append(newEntry)
+        
+        // Save the workout log to a JSON file
+        saveWorkoutLog()
+    }
+    
+    func saveWorkoutLog() {
+        do {
+            let encoder = JSONEncoder()
+            let workoutLogData = try encoder.encode(workoutLog)
+            
+            if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                let fileURL = documentDirectory.appendingPathComponent("tempWorkoutLog.json")
+                try workoutLogData.write(to: fileURL)
+            }
+        } catch {
+            print("Error saving workout log: \(error.localizedDescription)")
+        }
+    }
+    
+    func loadWorkoutLog() {
+        if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let fileURL = documentDirectory.appendingPathComponent("tempWorkoutLog.json")
+            do {
+                let workoutLogData = try Data(contentsOf: fileURL)
+                let decoder = JSONDecoder()
+                workoutLog = try decoder.decode([WorkoutLogEntrySimple].self, from: workoutLogData)
+            } catch {
+                print("Error loading workout log: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    private func formatDate(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        return dateFormatter.string(from: date)
+    }
+    
 } // end of Struct
 
 struct CustomTextFieldStyle: TextFieldStyle {
