@@ -116,13 +116,11 @@ struct ExerciseView: View {
             return []
         }
     }
-    
-    //@Binding var hideBanners: Bool
-    
+        
     var body: some View {
         VStack {
             List(exercises, id: \.self) { exercise in
-                NavigationLink(destination: SelectedExercise()){
+                NavigationLink(destination: SelectedExercise(selectedExercise: exercise)){
                     Text(exercise)
                         .navigationBarTitleDisplayMode(.inline)
 
@@ -148,12 +146,15 @@ struct ExerciseView: View {
 
 struct SelectedExercise: View {
     
+    var selectedExercise: String
+    
     @State private var workoutLog: [WorkoutLogEntrySimple] = []
+    @State private var testLog : [WorkoutLogEntrySimple] = [] // to test merging files
     
     //@Binding var hideBanners: Bool
     @State private var weight: Double = 0.0
     @State private var reps: Int = 0
-    @State private var setNumber: Int = 1
+    @State private var setNumber: Int = 0
     
     let decimalFormatter: NumberFormatter = {
         let decimalFormatter = NumberFormatter()
@@ -172,7 +173,7 @@ struct SelectedExercise: View {
             // where they'll input their information, put in another file
             // at this step, will use the input to start building the Exercise
 
-            BannerView(text: "Exercise Name") //state variable
+            BannerView(text: selectedExercise) //state variable
 
             HStack(spacing:1) {
                 Button(action: {
@@ -188,7 +189,9 @@ struct SelectedExercise: View {
                 }
                 
                 Button(action: {
-                    // Add action for the second button
+                    // change to navlink or whatever to send to review page
+                    // append tempWorkoutLog to tempOverallWorkoutLog
+                    // call func to clear tempWorkoutLog
                 }) {
                     Text("Done")
                         .font(.custom("Cairo-Regular", size: 20))
@@ -306,7 +309,24 @@ struct SelectedExercise: View {
             Button("Add Set") {
                 
                 setNumber += 1
-                addWorkoutLogEntry(exName: "Bench Press", setNumber: setNumber, weight: weight, reps: reps)
+                addWorkoutLogEntry(exName: selectedExercise, setNumber: setNumber, weight: weight, reps: reps)
+            }
+            Button("Clear JSON") {
+                clearJSON()
+            }
+            Button("merge files") {
+                mergeFiles()
+                do {
+                    let encoder = JSONEncoder()
+                    let workoutLogData = try encoder.encode(workoutLog)
+                    
+                    if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                        let fileURL = documentDirectory.appendingPathComponent("mergedWorkoutLog.json")
+                        try workoutLogData.write(to: fileURL)
+                    }
+                } catch {
+                    print("Error saving workout log: \(error.localizedDescription)")
+                }
             }
             
             List(workoutLog, id: \.workoutDate) { entry in
@@ -318,20 +338,6 @@ struct SelectedExercise: View {
             }
             .onAppear(perform: loadWorkoutLog)
             
-            //will show sets populated
-//            ScrollView {
-//                VStack {
-//                    ForEach(items, id: \.self) { item in
-//                        HStack {
-//                            Text(item)
-//                            Spacer()
-//                            Image(systemName: "arrow.right.circle")
-//                        }
-//                        .padding()
-//                        .border(Color.gray, width: 0.5)
-//                    }
-//                }
-//            }
             Spacer()
             
         } // end of highest VStack
@@ -376,6 +382,35 @@ struct SelectedExercise: View {
         }
     }
     
+    // proof of concept of clearing and merging workoutLog objects
+    // append workoutLog array to some new array
+    // save new array to another JSON file, "overallWorkoutLog.json
+    // this file will display in the review screen
+    // whenever user adds more workouts, repeat this process
+    // when implementing this between the two views, load overallWorkoutLog.json here and make array object of it
+    // when moving to review screen, load it and make object again
+    func clearJSON() {
+        if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let fileURL = documentDirectory.appendingPathComponent("tempWorkoutLog.json")
+            do {
+                let workoutLogData = try Data(contentsOf: fileURL)
+                let decoder = JSONDecoder()
+                workoutLog = try decoder.decode([WorkoutLogEntrySimple].self, from: workoutLogData)
+                workoutLog.removeAll()
+                
+                let blankData = try JSONEncoder().encode(workoutLog)
+                try blankData.write(to: fileURL, options: .atomic)
+                
+            } catch {
+                print("Error deleting workout log: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func mergeFiles() {
+        testLog += workoutLog
+    }
+    
     private func formatDate(_ date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
@@ -396,5 +431,5 @@ struct CustomTextFieldStyle: TextFieldStyle {
 }
 
 #Preview {
-    SelectedExercise()
+    ExerciseListView()
 }
