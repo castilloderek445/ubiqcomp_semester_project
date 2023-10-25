@@ -38,62 +38,60 @@ struct TricepExercises: Identifiable {
     var exercises = ["Dumbbell Overhead Triceps Extension", "Ring Dip", "Triceps Pulldown", "Katana Pull"]
 }
 
+//Root
 struct ExerciseListView: View {
     
-//    let bodyParts = [
-//        BodyPart(name: "Chest", exercises: ChestExercises().exercises),
-//        BodyPart(name: "Shoulders", exercises: ShoulderExercises().exercises),
-//        BodyPart(name: "Back", exercises: BackExercises().exercises),
-//        BodyPart(name: "Biceps", exercises: BicepExercises().exercises),
-//        BodyPart(name: "Triceps", exercises: TricepExercises().exercises)
-//    ]
-    
     let bodyParts = ["Chest", "Shoulders", "Back", "Biceps", "Triceps"]
-//    @State private var hideBanners = true
     
     var body: some View {
-//        VStack() {
-//            
-//            VStack(spacing:0) {
-//                BannerView(text: "Blank Routine")
-//                SubBannerView(text: "Select an exercise to start")
-//            }
-//            
-//            VStack {
-//                NavigationView {
-//                    List(bodyParts, id: \.self) { bodyPart in
-//                        NavigationLink(destination: ExerciseView(category: bodyPart)) {
-//                            Text(bodyPart)
+        
+//        NavigationView {
+//            List(bodyParts, id: \.self) { bodyPart in
+//                NavigationLink(destination: ExerciseView(category: bodyPart)) {
+//                    Text(bodyPart)
+//                        .navigationBarTitleDisplayMode(.inline)
+//
+//                        .toolbar {
+//                            ToolbarItemGroup(placement: .principal) {
+//                                VStack {
+//                                    Text("Blank Routine")
+//                                        .font(.custom("Cairo-Regular", size: 40))
+//                                        .foregroundColor(.white)
+//                                }
+//                            }
+//                            
 //                        }
-//                    }
+//                        .navigationBarTitleDisplayMode(.inline)
+//                        .toolbarBackground(Color(UIColor(red: 14/255, green: 139/255, blue: 255/255, alpha: 1)), for: .navigationBar)
+//                        .toolbarBackground(.visible, for: .navigationBar)
+//                    
 //                }
+//                
 //            }
-//        }
+//        } // end of NavigationView
         
         NavigationView {
             List(bodyParts, id: \.self) { bodyPart in
                 NavigationLink(destination: ExerciseView(category: bodyPart)) {
                     Text(bodyPart)
                         .navigationBarTitleDisplayMode(.inline)
-
-                        .toolbar { // <2>
-                            ToolbarItemGroup(placement: .principal) {
+                        .toolbar {
+                            ToolbarItem(placement: .principal) {
                                 VStack {
                                     Text("Blank Routine")
                                         .font(.custom("Cairo-Regular", size: 40))
                                         .foregroundColor(.white)
+                                        //.padding(.top, -20)
                                 }
                             }
-                            
                         }
                         .navigationBarTitleDisplayMode(.inline)
                         .toolbarBackground(Color(UIColor(red: 14/255, green: 139/255, blue: 255/255, alpha: 1)), for: .navigationBar)
                         .toolbarBackground(.visible, for: .navigationBar)
-                    
                 }
-                
             }
         }
+        
     }
 }
 
@@ -147,6 +145,7 @@ struct ExerciseView: View {
 struct SelectedExercise: View {
     
     var selectedExercise: String
+    @State private var toReview = false
     
     @State private var workoutLog: [WorkoutLogEntrySimple] = []
     @State private var testLog : [WorkoutLogEntrySimple] = [] // to test merging files
@@ -173,35 +172,92 @@ struct SelectedExercise: View {
             // where they'll input their information, put in another file
             // at this step, will use the input to start building the Exercise
 
-            BannerView(text: selectedExercise) //state variable
+            //BannerView(text: selectedExercise) //state variable
+            
+            NavigationLink(destination: ReviewWorkoutView(), isActive: $toReview){
+                //EmptyView()
+                HStack(spacing:1) {
+                    Button(action: {
+                        // cancel entire thingy,
+                        // dialog: Are you sure you want to cancel exercise? Y/N
+                        // Y: send to add exercise screen
+                        // OR make this the Add Set button
+                    }) {
+                        Text("Cancel")
+                            .font(.custom("Cairo-Regular", size: 20))
+                            .frame(maxWidth: .infinity, maxHeight: 20)
+                            .padding()
+                            .background(Color(UIColor(red: 57/255, green: 57/255, blue: 57/255, alpha: 1)))
+                            .foregroundColor(.white)
+                            .cornerRadius(0)
+                    }
+                    
+                    Button(action: {
+                        // change to navlink or whatever to send to review page
+                        // append tempWorkoutLog to tempOverallWorkoutLog
+                        // call func to clear tempWorkoutLog
+                        toReview = true
+                    }) {
+                        Text("Done")
+                            .font(.custom("Cairo-Regular", size: 20))
+                            .frame(maxWidth: .infinity, maxHeight: 20)
+                            .padding()
+                            .background(Color(UIColor(red: 57/255, green: 57/255, blue: 57/255, alpha: 1)))                        .foregroundColor(.white)
+                            .cornerRadius(0)
+                    }
+                } // end of top buttons HStack
+                .background(.gray)
+            }
+            .navigationBarTitleDisplayMode(.inline)
 
-            HStack(spacing:1) {
-                Button(action: {
-                    // Add action for the first button
-                }) {
-                    Text("Cancel")
-                        .font(.custom("Cairo-Regular", size: 20))
-                        .frame(maxWidth: .infinity, maxHeight: 20)
-                        .padding()
-                        .background(Color(UIColor(red: 57/255, green: 57/255, blue: 57/255, alpha: 1)))
-                        .foregroundColor(.white)
-                        .cornerRadius(0)
+            .toolbar {
+                ToolbarItemGroup(placement: .principal) {
+                    VStack {
+                        Text("\(selectedExercise)")
+                            .font(.custom("Cairo-Regular", size: 50))
+                            .foregroundColor(.white)
+                            .minimumScaleFactor(0.5)
+                            .lineLimit(1)
+                        
+
+                    }
                 }
                 
-                Button(action: {
-                    // change to navlink or whatever to send to review page
-                    // append tempWorkoutLog to tempOverallWorkoutLog
-                    // call func to clear tempWorkoutLog
-                }) {
-                    Text("Done")
-                        .font(.custom("Cairo-Regular", size: 20))
-                        .frame(maxWidth: .infinity, maxHeight: 20)
-                        .padding()
-                        .background(Color(UIColor(red: 57/255, green: 57/255, blue: 57/255, alpha: 1)))                        .foregroundColor(.white)
-                        .cornerRadius(0)
-                }
-            } // end of top buttons HStack
-            .background(.gray)
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(Color(UIColor(red: 14/255, green: 139/255, blue: 255/255, alpha: 1)), for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
+            
+            //end of navigation link properties
+
+//            HStack(spacing:1) {
+//                
+//                Button(action: {
+//                    // Add action for the first button
+//                }) {
+//                    Text("Cancel")
+//                        .font(.custom("Cairo-Regular", size: 20))
+//                        .frame(maxWidth: .infinity, maxHeight: 20)
+//                        .padding()
+//                        .background(Color(UIColor(red: 57/255, green: 57/255, blue: 57/255, alpha: 1)))
+//                        .foregroundColor(.white)
+//                        .cornerRadius(0)
+//                }
+//                
+//                Button(action: {
+//                    // change to navlink or whatever to send to review page
+//                    // append tempWorkoutLog to tempOverallWorkoutLog
+//                    // call func to clear tempWorkoutLog
+//                }) {
+//                    Text("Done")
+//                        .font(.custom("Cairo-Regular", size: 20))
+//                        .frame(maxWidth: .infinity, maxHeight: 20)
+//                        .padding()
+//                        .background(Color(UIColor(red: 57/255, green: 57/255, blue: 57/255, alpha: 1)))                        .foregroundColor(.white)
+//                        .cornerRadius(0)
+//                }
+//            } // end of top buttons HStack
+//            .background(.gray)
         }
         
         // INPUT SECTION
