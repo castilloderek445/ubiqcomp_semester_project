@@ -8,7 +8,8 @@
 import Foundation
 
 // for ContentViewSimple
-struct WorkoutLogEntrySimple: Codable{
+struct WorkoutLogEntrySimple: Codable, Identifiable{
+    var id = UUID()
     var workoutDate: Date
     var workout: [Exercise]
 

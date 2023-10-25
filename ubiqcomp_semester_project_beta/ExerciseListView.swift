@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+//MARK: struct stuff
+
 struct BodyPart: Identifiable {
     let id = UUID()
     let name: String
@@ -25,7 +27,7 @@ struct ShoulderExercises: Identifiable {
 
 struct BackExercises: Identifiable {
     var id = UUID()
-    var exercises = ["Pull Ups", "Barbell Row", "Deadlift", "Romanian Deadlift", "Lat Pulldown", "Barbell Row", "Seated Cable Row"]
+    var exercises = ["Pull Ups", "Deadlift", "Romanian Deadlift", "Lat Pulldown", "Barbell Row", "Seated Cable Row"]
 }
 
 struct BicepExercises: Identifiable {
@@ -38,65 +40,58 @@ struct TricepExercises: Identifiable {
     var exercises = ["Dumbbell Overhead Triceps Extension", "Ring Dip", "Triceps Pulldown", "Katana Pull"]
 }
 
-//Root
+struct CustomTextFieldStyle: TextFieldStyle {
+    func _body(configuration: TextField<Self._Label>) -> some View {
+        configuration
+        .padding(14)
+        .background(
+            RoundedRectangle(cornerRadius: 5, style: .continuous)
+                .stroke(Color.gray, lineWidth: 1)
+        ).padding(0)
+    }
+}
+
+//MARK: ExerciseListView
 struct ExerciseListView: View {
+        
+    @State var isActive: Bool = false
+    @State private var isActiveArray: [Bool] = Array(repeating: false, count: 5) // One state variable per row
     
     let bodyParts = ["Chest", "Shoulders", "Back", "Biceps", "Triceps"]
     
     var body: some View {
         
-//        NavigationView {
-//            List(bodyParts, id: \.self) { bodyPart in
-//                NavigationLink(destination: ExerciseView(category: bodyPart)) {
-//                    Text(bodyPart)
-//                        .navigationBarTitleDisplayMode(.inline)
-//
-//                        .toolbar {
-//                            ToolbarItemGroup(placement: .principal) {
-//                                VStack {
-//                                    Text("Blank Routine")
-//                                        .font(.custom("Cairo-Regular", size: 40))
-//                                        .foregroundColor(.white)
-//                                }
-//                            }
-//                            
-//                        }
-//                        .navigationBarTitleDisplayMode(.inline)
-//                        .toolbarBackground(Color(UIColor(red: 14/255, green: 139/255, blue: 255/255, alpha: 1)), for: .navigationBar)
-//                        .toolbarBackground(.visible, for: .navigationBar)
-//                    
-//                }
-//                
-//            }
-//        } // end of NavigationView
-        
         NavigationView {
-            List(bodyParts, id: \.self) { bodyPart in
-                NavigationLink(destination: ExerciseView(category: bodyPart)) {
-                    Text(bodyPart)
-                        .navigationBarTitleDisplayMode(.inline)
-                        .toolbar {
-                            ToolbarItem(placement: .principal) {
-                                VStack {
-                                    Text("Blank Routine")
-                                        .font(.custom("Cairo-Regular", size: 40))
-                                        .foregroundColor(.white)
-                                        //.padding(.top, -20)
-                                }
-                            }
-                        }
-                        .navigationBarTitleDisplayMode(.inline)
-                        .toolbarBackground(Color(UIColor(red: 14/255, green: 139/255, blue: 255/255, alpha: 1)), for: .navigationBar)
-                        .toolbarBackground(.visible, for: .navigationBar)
+            List(0..<bodyParts.count, id: \.self) { bodyPart in
+                NavigationLink(destination: ExerciseView(rootIsActive: self.$isActiveArray[bodyPart], category: bodyParts[bodyPart]), isActive: self.$isActiveArray[bodyPart]) {
+                    Text(bodyParts[bodyPart])
                 }
+                .isDetailLink(false)
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        VStack {
+                            Text("Blank Routine")
+                                .font(.custom("Cairo-Regular", size: 40))
+                                .foregroundColor(.white)
+                                //.padding(.top, -20)
+                        }
+                    }
+                }
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbarBackground(Color(UIColor(red: 14/255, green: 139/255, blue: 255/255, alpha: 1)), for: .navigationBar)
+                .toolbarBackground(.visible, for: .navigationBar)
+                
             }
+            
         }
         
     }
 }
-
+//MARK: ExerciseView
 struct ExerciseView: View {
     
+    @Binding var rootIsActive: Bool
     var category: String
     var exercises: [String] {
         switch category {
@@ -118,8 +113,9 @@ struct ExerciseView: View {
     var body: some View {
         VStack {
             List(exercises, id: \.self) { exercise in
-                NavigationLink(destination: SelectedExercise(selectedExercise: exercise)){
+                NavigationLink(destination: SelectedExercise(rootIsActive2: self.$rootIsActive, selectedExercise: exercise)){
                     Text(exercise)
+                    
                         .navigationBarTitleDisplayMode(.inline)
 
                         .toolbar { // <2>
@@ -137,18 +133,22 @@ struct ExerciseView: View {
                         .toolbarBackground(Color(UIColor(red: 14/255, green: 139/255, blue: 255/255, alpha: 1)), for: .navigationBar)
                         .toolbarBackground(.visible, for: .navigationBar)
                 }
+                .isDetailLink(false)
             }
         }
     }
 }
 
+//MARK: SelectedExerciseView
 struct SelectedExercise: View {
+    
+    @Binding var rootIsActive2: Bool
     
     var selectedExercise: String
     @State private var toReview = false
     
     @State private var workoutLog: [WorkoutLogEntrySimple] = []
-    @State private var testLog : [WorkoutLogEntrySimple] = [] // to test merging files
+    @State private var overallLog: [WorkoutLogEntrySimple] = [] // to test merging files
     
     //@Binding var hideBanners: Bool
     @State private var weight: Double = 0.0
@@ -169,14 +169,12 @@ struct SelectedExercise: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            // where they'll input their information, put in another file
-            // at this step, will use the input to start building the Exercise
-
-            //BannerView(text: selectedExercise) //state variable
-            
-            NavigationLink(destination: ReviewWorkoutView(), isActive: $toReview){
+            //MARK: NavigationLink stuff
+            NavigationLink(destination: ReviewWorkoutView(shouldPopToRootView: self.$rootIsActive2), isActive: $toReview){
                 //EmptyView()
                 HStack(spacing:1) {
+                    
+                    //MARK: Cancel Button
                     Button(action: {
                         // cancel entire thingy,
                         // dialog: Are you sure you want to cancel exercise? Y/N
@@ -192,11 +190,12 @@ struct SelectedExercise: View {
                             .cornerRadius(0)
                     }
                     
+                    //MARK: Done Button
                     Button(action: {
-                        // change to navlink or whatever to send to review page
-                        // append tempWorkoutLog to tempOverallWorkoutLog
-                        // call func to clear tempWorkoutLog
-                        toReview = true
+                        mergeFiles() //append current exercise to list of all exercises added in current workout
+                        clearJSON() // clear this current exercise's list, so to be used in next exercise
+                        self.toReview = true // move to ReviewWorkoutReview
+                        
                     }) {
                         Text("Done")
                             .font(.custom("Cairo-Regular", size: 20))
@@ -205,9 +204,11 @@ struct SelectedExercise: View {
                             .background(Color(UIColor(red: 57/255, green: 57/255, blue: 57/255, alpha: 1)))                        .foregroundColor(.white)
                             .cornerRadius(0)
                     }
+                    
                 } // end of top buttons HStack
                 .background(.gray)
             }
+            .isDetailLink(false)
             .navigationBarTitleDisplayMode(.inline)
 
             .toolbar {
@@ -218,8 +219,6 @@ struct SelectedExercise: View {
                             .foregroundColor(.white)
                             .minimumScaleFactor(0.5)
                             .lineLimit(1)
-                        
-
                     }
                 }
                 
@@ -229,38 +228,9 @@ struct SelectedExercise: View {
             .toolbarBackground(.visible, for: .navigationBar)
             
             //end of navigation link properties
-
-//            HStack(spacing:1) {
-//                
-//                Button(action: {
-//                    // Add action for the first button
-//                }) {
-//                    Text("Cancel")
-//                        .font(.custom("Cairo-Regular", size: 20))
-//                        .frame(maxWidth: .infinity, maxHeight: 20)
-//                        .padding()
-//                        .background(Color(UIColor(red: 57/255, green: 57/255, blue: 57/255, alpha: 1)))
-//                        .foregroundColor(.white)
-//                        .cornerRadius(0)
-//                }
-//                
-//                Button(action: {
-//                    // change to navlink or whatever to send to review page
-//                    // append tempWorkoutLog to tempOverallWorkoutLog
-//                    // call func to clear tempWorkoutLog
-//                }) {
-//                    Text("Done")
-//                        .font(.custom("Cairo-Regular", size: 20))
-//                        .frame(maxWidth: .infinity, maxHeight: 20)
-//                        .padding()
-//                        .background(Color(UIColor(red: 57/255, green: 57/255, blue: 57/255, alpha: 1)))                        .foregroundColor(.white)
-//                        .cornerRadius(0)
-//                }
-//            } // end of top buttons HStack
-//            .background(.gray)
-        }
+        } // end of NavigationLink
         
-        // INPUT SECTION
+        //MARK: Input Section
         VStack {
             
             // Weight Section
@@ -362,6 +332,8 @@ struct SelectedExercise: View {
             .padding(10)
             .background(Color.gray.opacity(0.2))
             
+            
+            //MARK: Buttons
             Button("Add Set") {
                 
                 setNumber += 1
@@ -372,27 +344,20 @@ struct SelectedExercise: View {
             }
             Button("merge files") {
                 mergeFiles()
-                do {
-                    let encoder = JSONEncoder()
-                    let workoutLogData = try encoder.encode(workoutLog)
-                    
-                    if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-                        let fileURL = documentDirectory.appendingPathComponent("mergedWorkoutLog.json")
-                        try workoutLogData.write(to: fileURL)
-                    }
-                } catch {
-                    print("Error saving workout log: \(error.localizedDescription)")
-                }
             }
             
+            //MARK: Display WORKOUT SETS
             List(workoutLog, id: \.workoutDate) { entry in
                 
                 let weightFormatted = entry.workout.map { $0.weight }.reduce(0, +)
                 
-                Text("Flat Barbell Bench Press, \(entry.workout.map { $0.setNumber }.reduce(0, +)) set, \(String(format: "%.1f", weightFormatted)) lbs ")
+                Text("\(selectedExercise), \(entry.workout.map { $0.exerciseName }.map{String($0)}.joined(separator: " ")), \(String(format: "%.1f", weightFormatted)) lbs, \(entry.workout.map { $0.reps }.reduce(0, +)) reps")
             
             }
-            .onAppear(perform: loadWorkoutLog)
+            .onAppear{
+                loadTempWorkoutLog(log: workoutLog, fileName: "tempWorkoutLog.json")
+                loadOverallWorkoutLog(log: overallLog, fileName: "mergedWorkoutLog.json")
+            }
             
             Spacer()
             
@@ -400,6 +365,7 @@ struct SelectedExercise: View {
         .padding()
     } // end of Body
     
+    //MARK: addWorkoutLogEntry Function
     func addWorkoutLogEntry(exName: String, setNumber: Int, weight: Double, reps: Int) {
                 
         let newEntry = WorkoutLogEntrySimple(workoutDate: Date(),
@@ -408,13 +374,14 @@ struct SelectedExercise: View {
         workoutLog.append(newEntry)
         
         // Save the workout log to a JSON file
-        saveWorkoutLog()
+        saveWorkoutLog(log: workoutLog)
     }
     
-    func saveWorkoutLog() {
+    //MARK: saveWorkoutLog Function
+    func saveWorkoutLog(log: [WorkoutLogEntrySimple]) {
         do {
             let encoder = JSONEncoder()
-            let workoutLogData = try encoder.encode(workoutLog)
+            let workoutLogData = try encoder.encode(log)
             
             if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
                 let fileURL = documentDirectory.appendingPathComponent("tempWorkoutLog.json")
@@ -425,9 +392,10 @@ struct SelectedExercise: View {
         }
     }
     
-    func loadWorkoutLog() {
+    //MARK: loadWorkoutLog Function
+    func loadTempWorkoutLog(log: [WorkoutLogEntrySimple], fileName: String) {
         if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            let fileURL = documentDirectory.appendingPathComponent("tempWorkoutLog.json")
+            let fileURL = documentDirectory.appendingPathComponent(fileName)
             do {
                 let workoutLogData = try Data(contentsOf: fileURL)
                 let decoder = JSONDecoder()
@@ -438,6 +406,21 @@ struct SelectedExercise: View {
         }
     }
     
+    func loadOverallWorkoutLog(log: [WorkoutLogEntrySimple], fileName: String) {
+        if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let fileURL = documentDirectory.appendingPathComponent(fileName)
+            do {
+                let workoutLogData = try Data(contentsOf: fileURL)
+                let decoder = JSONDecoder()
+                overallLog = try decoder.decode([WorkoutLogEntrySimple].self, from: workoutLogData)
+            } catch {
+                print("Error loading workout log: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    
+    //MARK: clearJSON Function
     // proof of concept of clearing and merging workoutLog objects
     // append workoutLog array to some new array
     // save new array to another JSON file, "overallWorkoutLog.json
@@ -449,13 +432,14 @@ struct SelectedExercise: View {
         if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             let fileURL = documentDirectory.appendingPathComponent("tempWorkoutLog.json")
             do {
-                let workoutLogData = try Data(contentsOf: fileURL)
-                let decoder = JSONDecoder()
-                workoutLog = try decoder.decode([WorkoutLogEntrySimple].self, from: workoutLogData)
+//                let workoutLogData = try Data(contentsOf: fileURL)
+//                let decoder = JSONDecoder()
+//                workoutLog = try decoder.decode([WorkoutLogEntrySimple].self, from: workoutLogData)
                 workoutLog.removeAll()
                 
                 let blankData = try JSONEncoder().encode(workoutLog)
                 try blankData.write(to: fileURL, options: .atomic)
+                print("cleared tempWorkoutLog.json")
                 
             } catch {
                 print("Error deleting workout log: \(error.localizedDescription)")
@@ -463,10 +447,29 @@ struct SelectedExercise: View {
         }
     }
     
+    //MARK: mergeFiles Function
     func mergeFiles() {
-        testLog += workoutLog
+        
+        // append
+        overallLog += workoutLog
+        
+        // save to json file
+        do {
+            
+            let encoder = JSONEncoder()
+            let workoutLogData = try encoder.encode(overallLog)
+            
+            if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                let fileURL = documentDirectory.appendingPathComponent("mergedWorkoutLog.json")
+                try workoutLogData.write(to: fileURL)
+                print("appended workoutLog to overallLog")
+            }
+        } catch {
+            print("Error saving workout log: \(error.localizedDescription)")
+        }
     }
     
+    //MARK: formatDate Function
     private func formatDate(_ date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
@@ -475,16 +478,7 @@ struct SelectedExercise: View {
     
 } // end of Struct
 
-struct CustomTextFieldStyle: TextFieldStyle {
-    func _body(configuration: TextField<Self._Label>) -> some View {
-        configuration
-        .padding(14)
-        .background(
-            RoundedRectangle(cornerRadius: 5, style: .continuous)
-                .stroke(Color.gray, lineWidth: 1)
-        ).padding(0)
-    }
-}
+
 
 #Preview {
     ExerciseListView()
