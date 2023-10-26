@@ -9,52 +9,79 @@ import SwiftUI
 
 struct AddWorkoutView: View {
     
+    @State private var rootIsActive: Bool = false
+    //@State private var bodyPartListPushed: Bool = false
+    
     var body: some View {
         
-        VStack {
+        NavigationView {
             
-            VStack(spacing:0) {
-                BannerView(text: "Add a Workout")
-                DateBannerView()
-            }
-            Spacer()
+            // MARK: highest VStack
+            VStack {
+                
+                // MARK: Banner
+                HStack(spacing:1) {
+                    DateBannerView()
+                    
+                } // end of top buttons HStack
+                .background(.gray)
+                
+                Spacer()
 
-            // Buttons
-            VStack(spacing: 20) {
-                
-                Button(action: {
-                    // Action for "Choose Routine" button
-                }) {
-                    Text("Choose Routine")
-                        .font(.custom("Cairo-Regular", size: 32))
-                        .tracking(-0.24)
-                }
-                .frame(width: 289, height: 97)
-                .background(Color(UIColor(red: 14/255, green: 139/255, blue: 255/255, alpha: 1))                .edgesIgnoringSafeArea(.top))
-                .cornerRadius(12)
-                .foregroundColor(.white)
-                .shadow(color: Color.black.opacity(0.30), radius: 4, x: 0, y: 4)
-                
-                
-                NavigationView {
-                    NavigationLink(destination: ExerciseListView()) {
+                // MARK: Buttons VStack
+                VStack(spacing: 70) {
+                    
+                    // MARK: Choose Routine Button
+                    NavigationLink(destination: EmptyView()) {
+                        Text("Choose Routine")
+                            .font(.custom("Cairo-Regular", size: 32))
+                            .tracking(-0.24)
+                    }
+                    .frame(width: 289, height: 97)
+                    .background(Color(UIColor(red: 14/255, green: 139/255, blue: 255/255, alpha: 1))                .edgesIgnoringSafeArea(.top))
+                    .cornerRadius(12)
+                    .foregroundColor(.white)
+                    .shadow(color: Color.black.opacity(0.30), radius: 4, x: 0, y: 4)
+                    
+                    // MARK: New Routine Button
+                    NavigationLink(destination: ExerciseListView(rootIsActive: self.$rootIsActive), isActive: self.$rootIsActive) {
                         Text("New Routine")
                             .font(.custom("Cairo-Regular", size: 32))
                             .tracking(-0.24)
                     }
+                    .isDetailLink(false)
+
                     .frame(width: 289, height: 97)
                     .background(Color(UIColor(red: 254/255, green: 125/255, blue: 14/255, alpha: 1))                .edgesIgnoringSafeArea(.top))
                     .cornerRadius(12)
                     .foregroundColor(.white)
                     .shadow(color: Color.black.opacity(0.30), radius: 4, x: 0, y: 4)
-                }
+                } // end of Buttons VStack
+                Spacer()
+                Spacer()
+            } // end of VStack
                 
+            // MARK: navbar stuff
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    VStack {
+                        Text("Blank Routine")
+                            .font(.custom("Cairo-Regular", size: 40))
+                            .foregroundColor(.white)
+                            //.padding(.top, -20)
+                    }
+                }
             }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(Color(UIColor(red: 14/255, green: 139/255, blue: 255/255, alpha: 1)), for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
             
-            Spacer()
-            Spacer()
-        }
+        } // end of navigationview
+        
+        
     }
+    
 }
 
 

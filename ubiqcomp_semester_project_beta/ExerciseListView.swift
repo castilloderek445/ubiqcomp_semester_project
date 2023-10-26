@@ -54,38 +54,37 @@ struct CustomTextFieldStyle: TextFieldStyle {
 //MARK: ExerciseListView
 struct ExerciseListView: View {
         
-    @State var isActive: Bool = false
+    @Binding var rootIsActive: Bool
     @State private var isActiveArray: [Bool] = Array(repeating: false, count: 5) // One state variable per row
     
     let bodyParts = ["Chest", "Shoulders", "Back", "Biceps", "Triceps"]
     
     var body: some View {
         
-        NavigationView {
-            List(0..<bodyParts.count, id: \.self) { bodyPart in
-                NavigationLink(destination: ExerciseView(rootIsActive: self.$isActiveArray[bodyPart], category: bodyParts[bodyPart]), isActive: self.$isActiveArray[bodyPart]) {
-                    Text(bodyParts[bodyPart])
-                }
-                .isDetailLink(false)
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .principal) {
-                        VStack {
-                            Text("Blank Routine")
-                                .font(.custom("Cairo-Regular", size: 40))
-                                .foregroundColor(.white)
-                                //.padding(.top, -20)
-                        }
+        List(0..<bodyParts.count, id: \.self) { bodyPart in
+//                NavigationLink(destination: ExerciseView(rootIsActive: self.$isActiveArray[bodyPart], category: bodyParts[bodyPart]), isActive: self.$isActiveArray[bodyPart]) {
+//                    Text(bodyParts[bodyPart])
+//                }
+            NavigationLink(destination: ExerciseView(rootIsActive: self.$rootIsActive, category: bodyParts[bodyPart])) {
+                Text(bodyParts[bodyPart])
+            }
+            .isDetailLink(false)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    VStack {
+                        Text("Blank Routine")
+                            .font(.custom("Cairo-Regular", size: 40))
+                            .foregroundColor(.white)
+                            //.padding(.top, -20)
                     }
                 }
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbarBackground(Color(UIColor(red: 14/255, green: 139/255, blue: 255/255, alpha: 1)), for: .navigationBar)
-                .toolbarBackground(.visible, for: .navigationBar)
-                
             }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(Color(UIColor(red: 14/255, green: 139/255, blue: 255/255, alpha: 1)), for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
             
         }
-        
     }
 }
 //MARK: ExerciseView
@@ -113,7 +112,7 @@ struct ExerciseView: View {
     var body: some View {
         VStack {
             List(exercises, id: \.self) { exercise in
-                NavigationLink(destination: SelectedExercise(rootIsActive2: self.$rootIsActive, selectedExercise: exercise)){
+                NavigationLink(destination: SelectedExercise(rootIsActive: self.$rootIsActive, selectedExercise: exercise)){
                     Text(exercise)
                     
                         .navigationBarTitleDisplayMode(.inline)
@@ -142,7 +141,7 @@ struct ExerciseView: View {
 //MARK: SelectedExerciseView
 struct SelectedExercise: View {
     
-    @Binding var rootIsActive2: Bool
+    @Binding var rootIsActive: Bool
     
     var selectedExercise: String
     @State private var toReview = false
@@ -170,7 +169,8 @@ struct SelectedExercise: View {
     var body: some View {
         VStack(spacing: 0) {
             //MARK: NavigationLink stuff
-            NavigationLink(destination: ReviewWorkoutView(shouldPopToRootView: self.$rootIsActive2), isActive: $toReview){
+            NavigationLink(destination: ReviewWorkoutView(rootIsActive: self.$rootIsActive), isActive: $toReview){
+                
                 //EmptyView()
                 HStack(spacing:1) {
                     
@@ -481,5 +481,5 @@ struct SelectedExercise: View {
 
 
 #Preview {
-    ExerciseListView()
+    MainView()
 }

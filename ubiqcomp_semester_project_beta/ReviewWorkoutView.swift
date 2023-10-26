@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ReviewWorkoutView: View {
 
-    @Binding var shouldPopToRootView: Bool
+    @Binding var rootIsActive: Bool
     
     @State private var overallWorkoutLog: [WorkoutLogEntrySimple] = []
     
@@ -59,7 +59,7 @@ struct ReviewWorkoutView: View {
             }
             .onAppear(perform: loadWorkoutLog)
             
-            Button(action: { self.shouldPopToRootView = false}) {
+            Button(action: { self.rootIsActive = false}) {
                 Text("Pop to root")
             }
             
@@ -83,5 +83,5 @@ struct ReviewWorkoutView: View {
 }
 
 #Preview {
-    ExerciseListView()
+    MainView()
 }
