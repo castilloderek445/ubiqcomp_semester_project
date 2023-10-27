@@ -11,6 +11,8 @@ struct ReviewWorkoutView: View {
 
     @Binding var rootIsActive: Bool
     
+    @State var goToList: Bool = false
+        
     @State private var overallWorkoutLog: [WorkoutLogEntrySimple] = []
     
     var body: some View {
@@ -63,6 +65,13 @@ struct ReviewWorkoutView: View {
                 Text("Pop to root")
             }
             
+            NavigationLink("", destination: ExerciseListView(rootIsActive: $rootIsActive), isActive: $goToList )
+                Button("fuck you") {
+                    goToList = true
+                }
+            
+            
+            
             
         }
         Spacer()
@@ -81,6 +90,8 @@ struct ReviewWorkoutView: View {
         }
     }
 }
+
+
 
 #Preview {
     MainView()

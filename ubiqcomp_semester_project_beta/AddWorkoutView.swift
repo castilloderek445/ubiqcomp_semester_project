@@ -45,9 +45,12 @@ struct AddWorkoutView: View {
                     
                     // MARK: New Routine Button
                     NavigationLink(destination: ExerciseListView(rootIsActive: self.$rootIsActive), isActive: self.$rootIsActive) {
-                        Text("New Routine")
-                            .font(.custom("Cairo-Regular", size: 32))
-                            .tracking(-0.24)
+                        Button(action: { self.rootIsActive = true}) {
+                            Text("New Routine")
+                                .font(.custom("Cairo-Regular", size: 32))
+                                .tracking(-0.24)
+                        }
+
                     }
                     .isDetailLink(false)
 
@@ -81,10 +84,7 @@ struct AddWorkoutView: View {
         
         
     }
-    
 }
-
-
 
 
 #Preview {
