@@ -14,16 +14,14 @@ struct ReviewWorkoutView: View {
     @State var goToList: Bool = false
         
     @State private var overallWorkoutLog: [WorkoutLogEntrySimple] = []
+    @State private var cancelAlert = false
     
     var body: some View {
         VStack(spacing: 0) {
             BannerView(text:"Review Workout")
             HStack(spacing:1) {
                 Button(action: {
-                    // cancel entire thingy,
-                    // dialog: Are you sure you want to cancel exercise? Y/N
-                    // Y: send to add exercise screen
-                    // OR make this the Add Set button
+                    cancelAlert = true
                 }) {
                     Text("Cancel")
                         .font(.custom("Cairo-Regular", size: 20))
@@ -32,6 +30,16 @@ struct ReviewWorkoutView: View {
                         .background(Color(UIColor(red: 57/255, green: 57/255, blue: 57/255, alpha: 1)))
                         .foregroundColor(.white)
                         .cornerRadius(0)
+                }
+                .alert("Are you sure you want to cancel this Workout?", isPresented: $cancelAlert) {
+                    Button("Yes, Delete Workout", role: .destructive) {
+                        // clear mergedWorkoutLog.json
+                        // clear overallWorkoutLog as well?
+                        // pop to root
+                        clearJSON()
+                        self.rootIsActive = false
+                    }
+                    Button("No, Continue Workout", role: .cancel) {}
                 }
                 
                 Button(action: {
@@ -69,6 +77,7 @@ struct ReviewWorkoutView: View {
                 Button("fuck you") {
                     goToList = true
                 }
+                .navigationBarBackButtonHidden(true)
             
             
             
@@ -86,6 +95,22 @@ struct ReviewWorkoutView: View {
                 overallWorkoutLog = try decoder.decode([WorkoutLogEntrySimple].self, from: workoutLogData)
             } catch {
                 print("Error loading workout log: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func clearJSON() {
+        if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let fileURL = documentDirectory.appendingPathComponent("mergedWorkoutLog.json")
+            do {
+                overallWorkoutLog.removeAll()
+                
+                let blankData = try JSONEncoder().encode(overallWorkoutLog)
+                try blankData.write(to: fileURL, options: .atomic)
+                print("cleared mergedWorkoutLog.json")
+                
+            } catch {
+                print("Error deleting workout log: \(error.localizedDescription)")
             }
         }
     }
