@@ -16,6 +16,8 @@ struct ReviewWorkoutView: View {
     @State private var overallWorkoutLog: [WorkoutLogEntrySimple] = []
     @State private var cancelAlert = false
     @State private var finishAlert = false
+    @State private var editSheetPresented = false
+    @State private var selectedEntry: WorkoutLogEntrySimple? // for selecting list entry
     
     var body: some View {
         VStack(spacing: 0) {
@@ -66,7 +68,7 @@ struct ReviewWorkoutView: View {
             .background(.gray)
             
             DateBannerView()
-            
+
             List(overallWorkoutLog, id: \.id) { entry in
                 
                 let weightFormatted = entry.workout.map { $0.weight }.reduce(0, +)
@@ -76,6 +78,8 @@ struct ReviewWorkoutView: View {
             }
             .onAppear(perform: loadWorkoutLog)
             
+            //MARK: testing stuff
+
             Button(action: { self.rootIsActive = false}) {
                 Text("Pop to root")
             }
