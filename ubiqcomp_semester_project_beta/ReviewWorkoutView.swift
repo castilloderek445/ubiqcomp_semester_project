@@ -15,6 +15,7 @@ struct ReviewWorkoutView: View {
         
     @State private var overallWorkoutLog: [WorkoutLogEntrySimple] = []
     @State private var cancelAlert = false
+    @State private var finishAlert = false
     
     var body: some View {
         VStack(spacing: 0) {
@@ -32,20 +33,18 @@ struct ReviewWorkoutView: View {
                         .cornerRadius(0)
                 }
                 .alert("Are you sure you want to cancel this Workout?", isPresented: $cancelAlert) {
-                    Button("Yes, Delete Workout", role: .destructive) {
+                    Button("Delete Workout", role: .destructive) {
                         // clear mergedWorkoutLog.json
                         // clear overallWorkoutLog as well?
                         // pop to root
                         clearJSON()
                         self.rootIsActive = false
                     }
-                    Button("No, Continue Workout", role: .cancel) {}
+                    Button("Continue Workout", role: .cancel) {}
                 }
                 
                 Button(action: {
-                    // change to navlink or whatever to send to review page
-                    // append tempWorkoutLog to tempOverallWorkoutLog
-                    // call func to clear tempWorkoutLog
+                    finishAlert = true
                 }) {
                     Text("Finish")
                         .font(.custom("Cairo-Regular", size: 20))
@@ -53,6 +52,14 @@ struct ReviewWorkoutView: View {
                         .padding()
                         .background(Color(UIColor(red: 57/255, green: 57/255, blue: 57/255, alpha: 1)))                        .foregroundColor(.white)
                         .cornerRadius(0)
+                }
+                .alert("Are you sure you want to Finish this Workout?", isPresented: $finishAlert) {
+                    Button("Finish Workout") {
+                        // check if state var isBlankRoutine = true (from pressing it in AddWorkoutView
+                        // if true, ask if want to save new workout Routine
+                        // if false (already using Routine), do regular save
+                    }
+                    Button("Continue Workout", role: .cancel) {}
                 }
                 
             } // end of top buttons HStack
@@ -78,9 +85,6 @@ struct ReviewWorkoutView: View {
                     goToList = true
                 }
                 .navigationBarBackButtonHidden(true)
-            
-            
-            
             
         }
         Spacer()
@@ -114,6 +118,13 @@ struct ReviewWorkoutView: View {
             }
         }
     }
+    
+    //func saveWorkout: append to realworkoutlog
+    //func saveWorkoutRoutine:
+        // method A: save a whole new json file containing this routine
+            // pros/cons: easy to implement, might bloat storage
+        // method B: append to a json file that contains routines as individual enetries
+            // pros/cons: harder to access
 }
 
 
