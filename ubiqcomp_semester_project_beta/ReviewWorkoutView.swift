@@ -16,8 +16,6 @@ struct ReviewWorkoutView: View {
     @State private var overallWorkoutLog: [WorkoutLogEntrySimple] = []
     @State private var cancelAlert = false
     @State private var finishAlert = false
-    @State private var editSheetPresented = false
-    @State private var selectedEntry: WorkoutLogEntrySimple? // for selecting list entry
     
     var body: some View {
         VStack(spacing: 0) {
@@ -59,7 +57,12 @@ struct ReviewWorkoutView: View {
                     Button("Finish Workout") {
                         // check if state var isBlankRoutine = true (from pressing it in AddWorkoutView
                         // if true, ask if want to save new workout Routine
-                        // if false (already using Routine), do regular save
+                            // following actions...
+                        // if false (already using Routine), do regular save - pop are you sure you wanna save
+                            // append overallworkoutlog to real workout mergeFiles()
+                            // clear overallworkoutlog clearJSON (same way as cleared tempworkoutlog)
+                            // pop to root or to workout history
+                        
                     }
                     Button("Continue Workout", role: .cancel) {}
                 }
@@ -69,11 +72,31 @@ struct ReviewWorkoutView: View {
             
             DateBannerView()
 
-            List(overallWorkoutLog, id: \.id) { entry in
+            List($overallWorkoutLog, id: \.id) { entry in
                 
-                let weightFormatted = entry.workout.map { $0.weight }.reduce(0, +)
+//                let weightFormatted = entry.workout.map { $0.weight }.reduce(0, +)
+//                
+//                Text("\(entry.workout.map { $0.exerciseName }.map{String($0)}.joined(separator: " ")), \(String(format: "%.1f", weightFormatted)) lbs, \(entry.workout.map { $0.reps }.reduce(0, +)) reps")
                 
-                Text("\(entry.workout.map { $0.exerciseName }.map{String($0)}.joined(separator: " ")), \(String(format: "%.1f", weightFormatted)) lbs, \(entry.workout.map { $0.reps }.reduce(0, +)) reps")
+                // Format the exercise names in a comma-separated list
+                let exerciseNames = entry.workout.map {
+                    $0.exerciseName.wrappedValue
+                }.joined(separator: ", ")
+                
+                // Format the weights and reps
+                let weight = entry.workout.map {
+                    String($0.weight.wrappedValue)
+                }
+                let reps = entry.workout.map {
+                    String($0.reps.wrappedValue)
+                }
+                
+                // Combine the formatted exercise names, weights, and reps
+                let formattedText = "\(exerciseNames)\nWeight: \(weight.joined(separator: ", ")) lbs\nReps: \(reps.joined(separator: ", ")) reps"
+                
+                NavigationLink(destination: EditExerciseView(entry: entry)) {
+                    Text(formattedText)
+                }
             
             }
             .onAppear(perform: loadWorkoutLog)
