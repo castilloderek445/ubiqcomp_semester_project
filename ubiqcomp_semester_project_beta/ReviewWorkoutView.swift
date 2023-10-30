@@ -72,31 +72,25 @@ struct ReviewWorkoutView: View {
             
             DateBannerView()
 
-            List($overallWorkoutLog, id: \.id) { entry in
+            List{
                 
-//                let weightFormatted = entry.workout.map { $0.weight }.reduce(0, +)
-//                
-//                Text("\(entry.workout.map { $0.exerciseName }.map{String($0)}.joined(separator: " ")), \(String(format: "%.1f", weightFormatted)) lbs, \(entry.workout.map { $0.reps }.reduce(0, +)) reps")
-                
-                // Format the exercise names in a comma-separated list
-                let exerciseNames = entry.workout.map {
-                    $0.exerciseName.wrappedValue
-                }.joined(separator: ", ")
-                
-                // Format the weights and reps
-                let weight = entry.workout.map {
-                    String($0.weight.wrappedValue)
+                ForEach($overallWorkoutLog, id: \.id) {entry in
+                    let exerciseNames = entry.workout.map {
+                        $0.exerciseName.wrappedValue }.joined(separator: ", ")
+                    
+                    let weight = entry.workout.map { String($0.weight.wrappedValue) }
+                    let reps = entry.workout.map { String($0.reps.wrappedValue) }
+                    
+                    let formattedText = "\(exerciseNames)\nWeight: \(weight.joined(separator: ", ")) lbs\nReps: \(reps.joined(separator: ", ")) reps"
+                    
+                    NavigationLink(destination: EditExerciseView(entry: entry)) {
+                        Text(formattedText)
+                    }
+                }.onDelete { indexSet in
+                    overallWorkoutLog.remove(atOffsets: indexSet)
+                    //saveWorkoutLog() can probably save this save for the Finish Workout button
                 }
-                let reps = entry.workout.map {
-                    String($0.reps.wrappedValue)
-                }
-                
-                // Combine the formatted exercise names, weights, and reps
-                let formattedText = "\(exerciseNames)\nWeight: \(weight.joined(separator: ", ")) lbs\nReps: \(reps.joined(separator: ", ")) reps"
-                
-                NavigationLink(destination: EditExerciseView(entry: entry)) {
-                    Text(formattedText)
-                }
+
             
             }
             .onAppear(perform: loadWorkoutLog)
@@ -143,6 +137,20 @@ struct ReviewWorkoutView: View {
             } catch {
                 print("Error deleting workout log: \(error.localizedDescription)")
             }
+        }
+    }
+    
+    func saveWorkoutLog() {
+        do {
+            let encoder = JSONEncoder()
+            let workoutLogData = try encoder.encode(overallWorkoutLog)
+            
+            if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                let fileURL = documentDirectory.appendingPathComponent("mergedWorkoutLog.json")
+                try workoutLogData.write(to: fileURL)
+            }
+        } catch {
+            print("Error saving workout log: \(error.localizedDescription)")
         }
     }
     
