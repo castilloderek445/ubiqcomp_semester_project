@@ -30,8 +30,8 @@
             filePath = "ubiqcomp_semester_project_beta/ReviewWorkoutView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -46,8 +46,8 @@
             filePath = "ubiqcomp_semester_project_beta/ReviewWorkoutView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -97,7 +97,54 @@
                   endingLineNumber = "62"
                   offsetFromSymbolStart = "116">
                </Location>
+               <Location
+                  uuid = "E583485E-164E-4527-9860-EA97A4A01B3B - 9c3e14de59fbefee"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ubiqcomp_semester_project_beta.ExerciseListView.init(rootIsActive: SwiftUI.Binding&lt;Swift.Bool&gt;, exerciseListIsActive: Swift.Bool) -&gt; ubiqcomp_semester_project_beta.ExerciseListView"
+                  moduleName = "ubiqcomp_semester_project_beta"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/derekcastillo/Documents/Fall%2023/COSC%204355/ubiqcomp_semester_project_beta/ubiqcomp_semester_project_beta/ExerciseListView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "116">
+               </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E59F7787-1BA3-4586-A7F8-5ED41F6E4517"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ubiqcomp_semester_project_beta/ReviewWorkoutView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
+            landmarkName = "loadWorkoutLog()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1C6A7101-EC86-443A-BA10-15FAD6D14723"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ubiqcomp_semester_project_beta/ReviewWorkoutView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "152"
+            endingLineNumber = "152"
+            landmarkName = "ReviewWorkoutView"
+            landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

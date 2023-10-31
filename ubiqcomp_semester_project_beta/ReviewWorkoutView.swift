@@ -14,17 +14,22 @@ struct ReviewWorkoutView: View {
     @State var goToList: Bool = false
         
     @State private var overallWorkoutLog: [WorkoutLogEntrySimple] = []
+    @State private var routine: [Routine] = []
     @State private var cancelAlert = false
     @State private var finishAlert = false
+    @State private var routineName: String = "My Routine" //default name for textfield
     
     var body: some View {
         VStack(spacing: 0) {
             BannerView(text:"Review Workout")
+            
             HStack(spacing:1) {
+                
+                //MARK: CANCEL BUTTON
                 Button(action: {
                     cancelAlert = true
                 }) {
-                    Text("Cancel")
+                    Text("Cancel Workout")
                         .font(.custom("Cairo-Regular", size: 20))
                         .frame(maxWidth: .infinity, maxHeight: 20)
                         .padding()
@@ -43,17 +48,20 @@ struct ReviewWorkoutView: View {
                     Button("Continue Workout", role: .cancel) {}
                 }
                 
+                //MARK: FINISH BUTTON
                 Button(action: {
                     finishAlert = true
                 }) {
-                    Text("Finish")
+                    Text("Finish Workout")
                         .font(.custom("Cairo-Regular", size: 20))
                         .frame(maxWidth: .infinity, maxHeight: 20)
                         .padding()
                         .background(Color(UIColor(red: 57/255, green: 57/255, blue: 57/255, alpha: 1)))                        .foregroundColor(.white)
                         .cornerRadius(0)
                 }
-                .alert("Are you sure you want to Finish this Workout?", isPresented: $finishAlert) {
+                .alert("Enter a name for your Routine", isPresented: $finishAlert) {
+                    
+                    TextField("", text: $routineName)
                     Button("Finish Workout") {
                         // check if state var isBlankRoutine = true (from pressing it in AddWorkoutView
                         // if true, ask if want to save new workout Routine
@@ -62,6 +70,8 @@ struct ReviewWorkoutView: View {
                             // append overallworkoutlog to real workout mergeFiles()
                             // clear overallworkoutlog clearJSON (same way as cleared tempworkoutlog)
                             // pop to root or to workout history
+                        addRoutineEntry() // saves to Routine object instance and then writes to routines.json
+                        //TODO: save routine template if necessary
                         
                     }
                     Button("Continue Workout", role: .cancel) {}
@@ -154,12 +164,45 @@ struct ReviewWorkoutView: View {
         }
     }
     
-    //func saveWorkout: append to realworkoutlog
-    //func saveWorkoutRoutine:
-        // method A: save a whole new json file containing this routine
-            // pros/cons: easy to implement, might bloat storage
-        // method B: append to a json file that contains routines as individual enetries
-            // pros/cons: harder to access
+        
+    func addRoutineEntry() {
+                
+        let newRoutineEntry = Routine(routineName: routineName, workouts: overallWorkoutLog)
+
+        routine.append(newRoutineEntry)
+        
+        // Save the workout log to a JSON file
+        saveRoutine(log: routine)
+    }
+    
+    func saveRoutine(log: [Routine]) {
+        do {
+            let encoder = JSONEncoder()
+            let workoutLogData = try encoder.encode(log)
+            
+            if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                let fileURL = documentDirectory.appendingPathComponent("routines.json")
+                try workoutLogData.write(to: fileURL)
+            }
+        } catch {
+            print("Error saving workout log: \(error.localizedDescription)")
+        }
+    }
+    
+    func loadRoutines() {
+        if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let fileURL = documentDirectory.appendingPathComponent("routines.json")
+            do {
+                let workoutLogData = try Data(contentsOf: fileURL)
+                let decoder = JSONDecoder()
+                routine = try decoder.decode([Routine].self, from: workoutLogData)
+            } catch {
+                print("Error loading workout log: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+
 }
 
 
