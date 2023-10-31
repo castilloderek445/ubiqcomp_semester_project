@@ -27,6 +27,11 @@ struct Routine: Codable, Identifiable {
     var workouts: [WorkoutLogEntrySimple]
 }
 
+struct RoutineList: Codable, Identifiable {
+    var id = UUID()
+    var routines: Routine
+}
+
 
 // for ContentView (experimental zone)
 struct WorkoutLogEntry: Codable, Identifiable{

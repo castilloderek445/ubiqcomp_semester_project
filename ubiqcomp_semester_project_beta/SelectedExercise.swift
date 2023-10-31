@@ -11,6 +11,8 @@ import SwiftUI
 struct SelectedExercise: View {
     
     @Binding var rootIsActive: Bool
+    @Binding var newRoutineIsActive: Bool
+
         
     var selectedExercise: String
     @State private var toReview = false
@@ -40,7 +42,7 @@ struct SelectedExercise: View {
     var body: some View {
         VStack(spacing: 0) {
             //MARK: NavigationLink stuff
-            NavigationLink(destination: ReviewWorkoutView(rootIsActive: self.$rootIsActive), isActive: $toReview){
+            NavigationLink(destination: ReviewWorkoutView(rootIsActive: self.$rootIsActive, newRoutineIsActive: self.$newRoutineIsActive), isActive: $toReview){
                 
                 //EmptyView()
                 HStack(spacing:1) {

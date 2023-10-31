@@ -10,7 +10,8 @@ import SwiftUI
 struct AddWorkoutView: View {
     
     @State private var rootIsActive: Bool = false
-    //@State private var bodyPartListPushed: Bool = false
+    @State private var newRoutineIsActive: Bool = false
+    
     
     var body: some View {
         
@@ -44,8 +45,10 @@ struct AddWorkoutView: View {
                     .shadow(color: Color.black.opacity(0.30), radius: 4, x: 0, y: 4)
                     
                     // MARK: New Routine Button
-                    NavigationLink(destination: ExerciseListView(rootIsActive: self.$rootIsActive), isActive: self.$rootIsActive) {
-                        Button(action: { self.rootIsActive = true}) {
+                    NavigationLink(destination: ExerciseListView(rootIsActive: self.$rootIsActive, newRoutineIsActive: self.$newRoutineIsActive), isActive: self.$rootIsActive) {
+                        Button(action: {
+                            self.rootIsActive = true
+                            self.newRoutineIsActive = true}) {
                             Text("New Routine")
                                 .font(.custom("Cairo-Regular", size: 32))
                                 .tracking(-0.24)

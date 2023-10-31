@@ -55,6 +55,7 @@ struct CustomTextFieldStyle: TextFieldStyle {
 struct ExerciseListView: View {
         
     @Binding var rootIsActive: Bool
+    @Binding var newRoutineIsActive: Bool
     @State var exerciseListIsActive: Bool = false
     
     @State private var isActiveArray: [Bool] = Array(repeating: false, count: 5) // One state variable per row
@@ -72,7 +73,7 @@ struct ExerciseListView: View {
 //                }
             // this way lets me pop back to the root (AddWorkoutView) but that isn't what I want
             // i want to pop back to ExerciseListView
-            NavigationLink(destination: ExerciseView(rootIsActive: self.$rootIsActive, category: bodyParts[bodyPart])) {
+            NavigationLink(destination: ExerciseView(rootIsActive: self.$rootIsActive, newRoutineIsActive: self.$newRoutineIsActive, category: bodyParts[bodyPart])) {
                 Text(bodyParts[bodyPart])
             }
             

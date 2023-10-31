@@ -10,13 +10,17 @@ import SwiftUI
 struct ReviewWorkoutView: View {
 
     @Binding var rootIsActive: Bool
+    @Binding var newRoutineIsActive: Bool
     
     @State var goToList: Bool = false
+    @State var saveToRoutineList = false
         
     @State private var overallWorkoutLog: [WorkoutLogEntrySimple] = []
     @State private var routine: [Routine] = []
+    @State private var routineList: [RoutineList] = []
     @State private var cancelAlert = false
     @State private var finishAlert = false
+    @State private var finishAlert2 = false
     @State private var routineName: String = "My Routine" //default name for textfield
     
     var body: some View {
@@ -70,11 +74,33 @@ struct ReviewWorkoutView: View {
                             // append overallworkoutlog to real workout mergeFiles()
                             // clear overallworkoutlog clearJSON (same way as cleared tempworkoutlog)
                             // pop to root or to workout history
-                        addRoutineEntry() // saves to Routine object instance and then writes to routines.json
+                        //addRoutineEntry() // saves to Routine object instance and then writes to routines.json
                         //TODO: save routine template if necessary
+                        if newRoutineIsActive {
+                            finishAlert2.toggle()
+                        }
                         
                     }
+                    
                     Button("Continue Workout", role: .cancel) {}
+                }
+                .alert("Would you like to also this Routine as a template for future use?", isPresented: $finishAlert2) {
+                    VStack {
+                        Button("Yes") {
+                            self.saveToRoutineList = true
+                            loadRoutineList()
+                            addRoutineEntry()
+                            clearJSON()
+                            self.saveToRoutineList = false
+                            self.rootIsActive = false
+                        }
+                        Button("No") {
+                            addRoutineEntry()
+                            clearJSON()
+                            self.rootIsActive = false
+                        }
+                    }
+
                 }
                 
             } // end of top buttons HStack
@@ -111,7 +137,7 @@ struct ReviewWorkoutView: View {
                 Text("Pop to root")
             }
             
-            NavigationLink("", destination: ExerciseListView(rootIsActive: $rootIsActive), isActive: $goToList )
+            NavigationLink("", destination: ExerciseListView(rootIsActive: $rootIsActive, newRoutineIsActive: self.$newRoutineIsActive), isActive: $goToList )
                 Button("fuck you") {
                     goToList = true
                 }
@@ -164,7 +190,19 @@ struct ReviewWorkoutView: View {
         }
     }
     
-        
+    func loadRoutines() {
+        if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let fileURL = documentDirectory.appendingPathComponent("routines.json")
+            do {
+                let workoutLogData = try Data(contentsOf: fileURL)
+                let decoder = JSONDecoder()
+                routine = try decoder.decode([Routine].self, from: workoutLogData)
+            } catch {
+                print("Error loading routines file: \(error.localizedDescription)")
+            }
+        }
+    }
+    
     func addRoutineEntry() {
                 
         let newRoutineEntry = Routine(routineName: routineName, workouts: overallWorkoutLog)
@@ -173,6 +211,13 @@ struct ReviewWorkoutView: View {
         
         // Save the workout log to a JSON file
         saveRoutine(log: routine)
+        
+        if saveToRoutineList {
+            
+            let newRoutineListEntry = RoutineList(routines: newRoutineEntry)
+            routineList.append(newRoutineListEntry)
+            saveRoutineList(entry: routineList)
+        }
     }
     
     func saveRoutine(log: [Routine]) {
@@ -185,23 +230,36 @@ struct ReviewWorkoutView: View {
                 try workoutLogData.write(to: fileURL)
             }
         } catch {
-            print("Error saving workout log: \(error.localizedDescription)")
+            print("Error saving to routine file: \(error.localizedDescription)")
         }
     }
     
-    func loadRoutines() {
+    func loadRoutineList() {
         if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            let fileURL = documentDirectory.appendingPathComponent("routines.json")
+            let fileURL = documentDirectory.appendingPathComponent("routineList.json")
             do {
                 let workoutLogData = try Data(contentsOf: fileURL)
                 let decoder = JSONDecoder()
-                routine = try decoder.decode([Routine].self, from: workoutLogData)
+                routineList = try decoder.decode([RoutineList].self, from: workoutLogData)
             } catch {
-                print("Error loading workout log: \(error.localizedDescription)")
+                print("Error loading routines list file: \(error.localizedDescription)")
             }
         }
     }
     
+    func saveRoutineList(entry: [RoutineList]) {
+        do {
+            let encoder = JSONEncoder()
+            let workoutLogData = try encoder.encode(entry)
+            
+            if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                let fileURL = documentDirectory.appendingPathComponent("routineList.json")
+                try workoutLogData.write(to: fileURL)
+            }
+        } catch {
+            print("Error saving to routine list file: \(error.localizedDescription)")
+        }
+    }
 
 }
 

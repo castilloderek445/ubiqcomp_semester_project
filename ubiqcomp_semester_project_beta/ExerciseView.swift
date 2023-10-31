@@ -11,6 +11,7 @@ import SwiftUI
 struct ExerciseView: View {
     
     @Binding var rootIsActive: Bool
+    @Binding var newRoutineIsActive: Bool
 
     var category: String
     var exercises: [String] {
@@ -33,7 +34,7 @@ struct ExerciseView: View {
     var body: some View {
         VStack {
             List(exercises, id: \.self) { exercise in
-                NavigationLink(destination: SelectedExercise(rootIsActive: self.$rootIsActive, selectedExercise: exercise)){
+                NavigationLink(destination: SelectedExercise(rootIsActive: self.$rootIsActive, newRoutineIsActive: self.$newRoutineIsActive, selectedExercise: exercise)){
                     Text(exercise)
                     
                         .navigationBarTitleDisplayMode(.inline)
