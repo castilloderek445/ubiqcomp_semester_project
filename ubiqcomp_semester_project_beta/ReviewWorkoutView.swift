@@ -204,8 +204,10 @@ struct ReviewWorkoutView: View {
     }
     
     //MARK: addRoutineEntry
+    
     func addRoutineEntry() {
-                
+        
+        loadRoutines()
         let newRoutineEntry = Routine(routineName: routineName, workouts: overallWorkoutLog)
 
         routine.append(newRoutineEntry)
