@@ -112,6 +112,21 @@
                   endingLineNumber = "62"
                   offsetFromSymbolStart = "116">
                </Location>
+               <Location
+                  uuid = "E583485E-164E-4527-9860-EA97A4A01B3B - 21221e1b627d53e7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ubiqcomp_semester_project_beta.ExerciseListView.init(rootIsActive: SwiftUI.Binding&lt;Swift.Bool&gt;, newRoutineIsActive: SwiftUI.Binding&lt;Swift.Bool&gt;, exerciseListIsActive: Swift.Bool) -&gt; ubiqcomp_semester_project_beta.ExerciseListView"
+                  moduleName = "ubiqcomp_semester_project_beta"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/derekcastillo/Documents/Fall%2023/COSC%204355/ubiqcomp_semester_project_beta/ubiqcomp_semester_project_beta/ExerciseListView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "63"
+                  endingLineNumber = "63"
+                  offsetFromSymbolStart = "128">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -145,6 +160,22 @@
             endingLineNumber = "178"
             landmarkName = "ReviewWorkoutView"
             landmarkType = "14">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3F598542-8739-4A19-9A62-6133D35BFEAC"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ubiqcomp_semester_project_beta/AddWorkoutView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
+            landmarkName = "body"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

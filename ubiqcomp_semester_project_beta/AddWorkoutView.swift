@@ -78,7 +78,7 @@ struct AddWorkoutView: View {
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     VStack {
-                        Text("Blank Routine")
+                        Text("Add a Workout")
                             .font(.custom("Cairo-Regular", size: 40))
                             .foregroundColor(.white)
                             //.padding(.top, -20)
