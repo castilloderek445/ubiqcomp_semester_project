@@ -23,6 +23,9 @@
 		AA2123FC2AE485B10037E126 /* WorkoutLogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2123FB2AE485B10037E126 /* WorkoutLogModel.swift */; };
 		AA2123FE2AE488060037E126 /* TopBannerFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2123FD2AE488060037E126 /* TopBannerFormat.swift */; };
 		AA4871D52AE4A0C00025B9FC /* ContentViewSimple.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4871D42AE4A0C00025B9FC /* ContentViewSimple.swift */; };
+		AA5A6A0F2AF1C94800346F21 /* ChosenRoutineReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5A6A0E2AF1C94800346F21 /* ChosenRoutineReviewView.swift */; };
+		AA5A6A112AF1FAE700346F21 /* EditChosenRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5A6A102AF1FAE700346F21 /* EditChosenRoutineView.swift */; };
+		AA5BB4762AF1B6B8003481BA /* ChooseRoutinesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5BB4752AF1B6B8003481BA /* ChooseRoutinesView.swift */; };
 		AA5C9F642AEEC95400B8626E /* EditExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5C9F632AEEC95400B8626E /* EditExerciseView.swift */; };
 		AA5E8EFB2AE4C08600B24867 /* ExerciseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5E8EFA2AE4C08600B24867 /* ExerciseListView.swift */; };
 		AA6E1D362AE88E4D0013A813 /* ReviewWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6E1D352AE88E4D0013A813 /* ReviewWorkoutView.swift */; };
@@ -49,6 +52,9 @@
 		AA2123FB2AE485B10037E126 /* WorkoutLogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutLogModel.swift; sourceTree = "<group>"; };
 		AA2123FD2AE488060037E126 /* TopBannerFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBannerFormat.swift; sourceTree = "<group>"; };
 		AA4871D42AE4A0C00025B9FC /* ContentViewSimple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewSimple.swift; sourceTree = "<group>"; };
+		AA5A6A0E2AF1C94800346F21 /* ChosenRoutineReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChosenRoutineReviewView.swift; sourceTree = "<group>"; };
+		AA5A6A102AF1FAE700346F21 /* EditChosenRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditChosenRoutineView.swift; sourceTree = "<group>"; };
+		AA5BB4752AF1B6B8003481BA /* ChooseRoutinesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseRoutinesView.swift; sourceTree = "<group>"; };
 		AA5C9F632AEEC95400B8626E /* EditExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExerciseView.swift; sourceTree = "<group>"; };
 		AA5E8EFA2AE4C08600B24867 /* ExerciseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseListView.swift; sourceTree = "<group>"; };
 		AA6E1D352AE88E4D0013A813 /* ReviewWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewWorkoutView.swift; sourceTree = "<group>"; };
@@ -98,9 +104,12 @@
 				AAD3FD4A2AEB4296008E4749 /* SelectedExercise.swift */,
 				AA6E1D352AE88E4D0013A813 /* ReviewWorkoutView.swift */,
 				AA5C9F632AEEC95400B8626E /* EditExerciseView.swift */,
+				AA5BB4752AF1B6B8003481BA /* ChooseRoutinesView.swift */,
+				AA5A6A0E2AF1C94800346F21 /* ChosenRoutineReviewView.swift */,
 				AA2123EA2AE46F170037E126 /* ProfileView.swift */,
 				AA2123FD2AE488060037E126 /* TopBannerFormat.swift */,
 				AA2123FB2AE485B10037E126 /* WorkoutLogModel.swift */,
+				AA5A6A102AF1FAE700346F21 /* EditChosenRoutineView.swift */,
 				AA2123DA2AE45FD70037E126 /* Assets.xcassets */,
 				AA2123DC2AE45FD70037E126 /* Preview Content */,
 			);
@@ -208,6 +217,7 @@
 				AA2123FC2AE485B10037E126 /* WorkoutLogModel.swift in Sources */,
 				AA5C9F642AEEC95400B8626E /* EditExerciseView.swift in Sources */,
 				AA2123D92AE45FD60037E126 /* ContentView.swift in Sources */,
+				AA5A6A0F2AF1C94800346F21 /* ChosenRoutineReviewView.swift in Sources */,
 				AA4871D52AE4A0C00025B9FC /* ContentViewSimple.swift in Sources */,
 				AA2123E72AE46EF10037E126 /* MainView.swift in Sources */,
 				AA5E8EFB2AE4C08600B24867 /* ExerciseListView.swift in Sources */,
@@ -216,6 +226,8 @@
 				AAD3FD492AEB427B008E4749 /* ExerciseView.swift in Sources */,
 				AA2123E92AE46F120037E126 /* AddWorkoutView.swift in Sources */,
 				AA2123D72AE45FD60037E126 /* ubiqcomp_semester_project_betaApp.swift in Sources */,
+				AA5A6A112AF1FAE700346F21 /* EditChosenRoutineView.swift in Sources */,
+				AA5BB4762AF1B6B8003481BA /* ChooseRoutinesView.swift in Sources */,
 				AA2123FE2AE488060037E126 /* TopBannerFormat.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

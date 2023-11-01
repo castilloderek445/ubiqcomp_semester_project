@@ -10,6 +10,7 @@ import SwiftUI
 struct AddWorkoutView: View {
     
     @State private var rootIsActive: Bool = false
+    @State private var rootIsActive2: Bool = false
     @State private var newRoutineIsActive: Bool = false
     
     
@@ -33,11 +34,17 @@ struct AddWorkoutView: View {
                 VStack(spacing: 70) {
                     
                     // MARK: Choose Routine Button
-                    NavigationLink(destination: EmptyView()) {
-                        Text("Choose Routine")
-                            .font(.custom("Cairo-Regular", size: 32))
-                            .tracking(-0.24)
+                    NavigationLink(destination: ChooseRoutinesView(rootIsActive2: self.$rootIsActive2), isActive: self.$rootIsActive2) {
+                        Button(action: {
+                            self.rootIsActive2 = true
+                        }) {
+                            Text("Choose Routine")
+                                .font(.custom("Cairo-Regular", size: 32))
+                                .tracking(-0.24)
+                        }
+
                     }
+                    .isDetailLink(false)
                     .frame(width: 289, height: 97)
                     .background(Color(UIColor(red: 14/255, green: 139/255, blue: 255/255, alpha: 1))                .edgesIgnoringSafeArea(.top))
                     .cornerRadius(12)
@@ -56,7 +63,6 @@ struct AddWorkoutView: View {
 
                     }
                     .isDetailLink(false)
-
                     .frame(width: 289, height: 97)
                     .background(Color(UIColor(red: 254/255, green: 125/255, blue: 14/255, alpha: 1))                .edgesIgnoringSafeArea(.top))
                     .cornerRadius(12)
@@ -91,5 +97,5 @@ struct AddWorkoutView: View {
 
 
 #Preview {
-    AddWorkoutView()
+    MainView()
 }
