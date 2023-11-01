@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		16C4C0912AF2DF840063BFC2 /* BodyWeightLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C4C0902AF2DF840063BFC2 /* BodyWeightLog.swift */; };
+		16C4C0932AF2DF960063BFC2 /* BodyWeightHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C4C0922AF2DF960063BFC2 /* BodyWeightHelper.swift */; };
+		16C4C0952AF2FC1E0063BFC2 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C4C0942AF2FC1E0063BFC2 /* ActivityViewController.swift */; };
+		16C4C0972AF303890063BFC2 /* UIImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C4C0962AF303890063BFC2 /* UIImagePickerController.swift */; };
+		16ED0BC52AF0415300C3649C /* ProfileAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16ED0BC42AF0415300C3649C /* ProfileAlertController.swift */; };
 		AA2123D72AE45FD60037E126 /* ubiqcomp_semester_project_betaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2123D62AE45FD60037E126 /* ubiqcomp_semester_project_betaApp.swift */; };
 		AA2123D92AE45FD60037E126 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2123D82AE45FD60037E126 /* ContentView.swift */; };
 		AA2123DB2AE45FD70037E126 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA2123DA2AE45FD70037E126 /* Assets.xcassets */; };
@@ -30,6 +35,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		16C4C0902AF2DF840063BFC2 /* BodyWeightLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyWeightLog.swift; sourceTree = "<group>"; };
+		16C4C0922AF2DF960063BFC2 /* BodyWeightHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyWeightHelper.swift; sourceTree = "<group>"; };
+		16C4C0942AF2FC1E0063BFC2 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		16C4C0962AF303890063BFC2 /* UIImagePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImagePickerController.swift; sourceTree = "<group>"; };
+		16ED0BC42AF0415300C3649C /* ProfileAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAlertController.swift; sourceTree = "<group>"; };
 		AA2123D32AE45FD60037E126 /* ubiqcomp_semester_project_beta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ubiqcomp_semester_project_beta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA2123D62AE45FD60037E126 /* ubiqcomp_semester_project_betaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ubiqcomp_semester_project_betaApp.swift; sourceTree = "<group>"; };
 		AA2123D82AE45FD60037E126 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -96,6 +106,11 @@
 				AAD3FD4A2AEB4296008E4749 /* SelectedExercise.swift */,
 				AA6E1D352AE88E4D0013A813 /* ReviewWorkoutView.swift */,
 				AA2123EA2AE46F170037E126 /* ProfileView.swift */,
+				16C4C0962AF303890063BFC2 /* UIImagePickerController.swift */,
+				16C4C0942AF2FC1E0063BFC2 /* ActivityViewController.swift */,
+				16ED0BC42AF0415300C3649C /* ProfileAlertController.swift */,
+				16C4C0902AF2DF840063BFC2 /* BodyWeightLog.swift */,
+				16C4C0922AF2DF960063BFC2 /* BodyWeightHelper.swift */,
 				AA2123FD2AE488060037E126 /* TopBannerFormat.swift */,
 				AA2123FB2AE485B10037E126 /* WorkoutLogModel.swift */,
 				AA2123DA2AE45FD70037E126 /* Assets.xcassets */,
@@ -201,8 +216,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16C4C0912AF2DF840063BFC2 /* BodyWeightLog.swift in Sources */,
 				AA6E1D362AE88E4D0013A813 /* ReviewWorkoutView.swift in Sources */,
 				AA2123FC2AE485B10037E126 /* WorkoutLogModel.swift in Sources */,
+				16C4C0952AF2FC1E0063BFC2 /* ActivityViewController.swift in Sources */,
+				16C4C0932AF2DF960063BFC2 /* BodyWeightHelper.swift in Sources */,
+				16C4C0972AF303890063BFC2 /* UIImagePickerController.swift in Sources */,
 				AA2123D92AE45FD60037E126 /* ContentView.swift in Sources */,
 				AA4871D52AE4A0C00025B9FC /* ContentViewSimple.swift in Sources */,
 				AA2123E72AE46EF10037E126 /* MainView.swift in Sources */,
@@ -212,6 +231,7 @@
 				AAD3FD492AEB427B008E4749 /* ExerciseView.swift in Sources */,
 				AA2123E92AE46F120037E126 /* AddWorkoutView.swift in Sources */,
 				AA2123D72AE45FD60037E126 /* ubiqcomp_semester_project_betaApp.swift in Sources */,
+				16ED0BC52AF0415300C3649C /* ProfileAlertController.swift in Sources */,
 				AA2123FE2AE488060037E126 /* TopBannerFormat.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
