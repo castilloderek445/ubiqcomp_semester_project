@@ -98,6 +98,7 @@ struct ChosenRoutineReviewView: View {
     func addRoutineEntry() {
         loadRoutines()
         routine.routineName = self.routineName
+        routine.id = UUID() // set new random ID
         routineEntry.append(routine)
         saveRoutine()
         //updateRoutineList()

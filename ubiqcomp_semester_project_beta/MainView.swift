@@ -17,7 +17,7 @@ struct MainView: View {
                 .tabItem {
                     Label("Workout", systemImage: "figure.run")
                 }.tag(1)
-            ContentView()
+            ContentViewSimple()
                 .tabItem {
                     Label("Home", systemImage: "house.fill")
                 }.tag(2)
