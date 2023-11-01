@@ -204,33 +204,51 @@ struct SelectedExercise: View {
                         Spacer()
                     }
                 } // end of Reps VStack
+                
+                VStack(spacing: 0) {
+                    //MARK: ADD SET Button
+                    Button("Add Set") {
+                        
+                        setNumber += 1
+                        addWorkoutLogEntry(exName: selectedExercise, setNumber: setNumber, weight: weight, reps: reps)
+                    }
+                    .frame(width: 100, height: 53)
+                    .font(.custom("Cairo-Regular", size: 22))
+                    .background(Color(UIColor(red: 254/255, green: 125/255, blue: 14/255, alpha: 1))                .edgesIgnoringSafeArea(.top))
+                    .cornerRadius(10)
+                    .foregroundColor(.white)
+                }
             } // end of Input VStack
             .padding(10)
             .background(Color.gray.opacity(0.2))
             
             
-            //MARK: Buttons
-            Button("Add Set") {
-                
-                setNumber += 1
-                addWorkoutLogEntry(exName: selectedExercise, setNumber: setNumber, weight: weight, reps: reps)
-            }
-            Button("Clear JSON") {
-                clearJSON()
-            }
-            Button("merge files") {
-                mergeFiles()
-            }
-            
+            //MARK: test Buttons
+            // buttons used for testing, keep commented out
+//            Button("Clear JSON") {
+//                clearJSON()
+//            }
+//            Button("merge files") {
+//                mergeFiles()
+//            }
+//            
             
             //MARK: Display WORKOUT SETS
-            List(workoutLog, id: \.workoutDate) { entry in
-                
-                let weightFormatted = entry.workout.map { $0.weight }.reduce(0, +)
-                
-                Text("\(selectedExercise), \(entry.workout.map { $0.exerciseName }.map{String($0)}.joined(separator: " ")), \(String(format: "%.1f", weightFormatted)) lbs, \(entry.workout.map { $0.reps }.reduce(0, +)) reps")
-            
+            List {
+                ForEach(workoutLog, id: \.workoutDate)  { entry in
+                    let weightFormatted = entry.workout.map { $0.weight }.reduce(0, +)
+                    
+                    Text("\(entry.workout.map { $0.exerciseName }.map{String($0)}.joined(separator: " ")), \(String(format: "%.1f", weightFormatted)) lbs, \(entry.workout.map { $0.reps }.reduce(0, +)) reps")
+                }
+                .onDelete { indexSet in
+                    workoutLog.remove(atOffsets: indexSet)
+                    saveWorkoutLog(log: workoutLog)
+                    print("deleted an exercise type beat")
+                }
             }
+            .cornerRadius(0)
+            .background(Color.gray.opacity(0.2))
+            .scrollContentBackground(.hidden)
             .onAppear{
                 loadTempWorkoutLog(log: workoutLog, fileName: "tempWorkoutLog.json")
                 loadOverallWorkoutLog(log: overallLog, fileName: "mergedWorkoutLog.json")

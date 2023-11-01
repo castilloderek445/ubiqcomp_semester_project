@@ -149,11 +149,12 @@ struct EditExerciseView: View {
                     } // end of Reps VStack
                 } // end of Input VStack
                 .padding(10)
-                .background(Color.gray.opacity(0.2))
+//                .background(Color.gray.opacity(0.2))
                 
                 Spacer()
             } // end of top VStack
-            //.padding()
+            .background(Color.gray.opacity(0.2))
+
         }
     }
     

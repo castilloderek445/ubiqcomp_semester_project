@@ -66,23 +66,10 @@ struct ExerciseListView: View {
         
         List(0..<bodyParts.count, id: \.self) { bodyPart in
             
-            //this navlink is for when it wasn't connected to the AddWorkoutView. the array stuff was so it was clear which in the list was being chosen.
-            //this array approach could be useful in AddWorkoutView when there'll eventually be multiple navigation links?
-//                NavigationLink(destination: ExerciseView(rootIsActive: self.$isActiveArray[bodyPart], category: bodyParts[bodyPart]), isActive: self.$isActiveArray[bodyPart]) {
-//                    Text(bodyParts[bodyPart])
-//                }
-            // this way lets me pop back to the root (AddWorkoutView) but that isn't what I want
-            // i want to pop back to ExerciseListView
             NavigationLink(destination: ExerciseView(rootIsActive: self.$rootIsActive, newRoutineIsActive: self.$newRoutineIsActive, category: bodyParts[bodyPart])) {
                 Text(bodyParts[bodyPart])
             }
             
-            // this way lets you go back to this view from ReviewWorkoutView, but gives error
-            // SwiftUI encountered an issue when pushing a NavigationLink. Please file a bug.
-            // nothing happens (so far) but it's not best practice
-//            NavigationLink(destination: ExerciseView(rootIsActive: self.$bodyListIsActive, category: bodyParts[bodyPart]), isActive: self.$bodyListIsActive) {
-//                Text(bodyParts[bodyPart])
-//            }
             .isDetailLink(false)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

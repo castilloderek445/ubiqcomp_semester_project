@@ -140,8 +140,8 @@
             filePath = "ubiqcomp_semester_project_beta/ReviewWorkoutView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
             landmarkName = "loadWorkoutLog()"
             landmarkType = "7">
          </BreakpointContent>
@@ -156,10 +156,10 @@
             filePath = "ubiqcomp_semester_project_beta/ReviewWorkoutView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "178"
-            endingLineNumber = "178"
-            landmarkName = "ReviewWorkoutView"
-            landmarkType = "14">
+            startingLineNumber = "186"
+            endingLineNumber = "186"
+            landmarkName = "clearJSON()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

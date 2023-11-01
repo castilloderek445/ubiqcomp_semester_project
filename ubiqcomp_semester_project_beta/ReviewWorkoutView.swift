@@ -133,17 +133,25 @@ struct ReviewWorkoutView: View {
             
             //MARK: testing stuff
 
-            Button(action: { self.rootIsActive = false}) {
-                Text("Pop to root")
-            }
+//            Button(action: { self.rootIsActive = false}) {
+//                Text("Pop to root")
+//            }
             
-            NavigationLink("", destination: ExerciseListView(rootIsActive: $rootIsActive, newRoutineIsActive: self.$newRoutineIsActive), isActive: $goToList )
-                Button("fuck you") {
-                    goToList = true
-                }
-                .navigationBarBackButtonHidden(true)
-            
+            VStack {
+                NavigationLink("", destination: ExerciseListView(rootIsActive: $rootIsActive, newRoutineIsActive: self.$newRoutineIsActive), isActive: $goToList )
+                    Button("Add Exercise") {
+                        goToList = true
+                    }
+                    .frame(width: 240, height: 90)
+                    .font(.custom("Cairo-Regular", size: 28))
+                    .background(Color(UIColor(red: 254/255, green: 125/255, blue: 14/255, alpha: 1))                .edgesIgnoringSafeArea(.top))
+                    .cornerRadius(10)
+                    .foregroundColor(.white)
+                    .navigationBarBackButtonHidden(true)
+            } // end of navlink vstack
+            .padding(.bottom, 20)
         }
+        .background(Color(UIColor(red: 242/255, green: 242/255, blue: 247/255, alpha: 1)))
         Spacer()
     } // end of Body
     

@@ -15,12 +15,13 @@ struct ChooseRoutinesView: View {
     
 
     var body: some View {
-        List { ForEach(routineList, id: \.id) { routineListItem in
-            NavigationLink(destination: ChosenRoutineReviewView(rootIsActive2: self.$rootIsActive2, routine: routineListItem.routines, routineList: self.$routineList)) {
-                Text(routineListItem.routines.routineName)
-                
-            } // end of NavigationLink
-            .isDetailLink(false)
+        List { 
+            ForEach(routineList, id: \.id) { routineListItem in
+                NavigationLink(destination: ChosenRoutineReviewView(rootIsActive2: self.$rootIsActive2, routine: routineListItem.routines, routineList: self.$routineList)) {
+                    Text(routineListItem.routines.routineName)
+                    
+                } // end of NavigationLink
+                .isDetailLink(false)
             
         }
         .onDelete { indexSet in

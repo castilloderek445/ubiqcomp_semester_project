@@ -90,6 +90,7 @@ struct AddWorkoutView: View {
             .toolbarBackground(.visible, for: .navigationBar)
             
         } // end of navigationview
+        .tint(.white)
         
         
     }

@@ -150,13 +150,12 @@ struct EditRoutineDetailView: View {
                     } // end of reps VStack
                     
                 } // end of input VStack
-                .padding(10)
-                .background(Color.gray.opacity(0.2))
-                
+                .padding(10)                
                 Spacer()
                 
                 
             } // end of top VStack
+            .background(Color.gray.opacity(0.2))
         }
     }
 
